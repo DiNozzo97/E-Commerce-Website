@@ -1,0 +1,94 @@
+/*                       BODY
+--------------------------------------------------------*/
+body{
+    background-color: gray;
+	background-size: cover;
+	padding-top: 10px;
+}
+
+  
+/*                       WRAPPER
+--------------------------------------------------------*/
+#wrapper{
+	width: 1300px;
+	margin: 0 auto 0 auto;
+}
+     
+
+/*                       HEADER	
+--------------------------------------------------------*/
+header{
+	width: auto;
+	height: 40px;
+	background-color: orange;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+#login1{
+	float:right;
+    margin-right:10px;
+	
+  
+}
+
+
+/*                     NAV PANEL
+--------------------------------------------------------*/
+nav{
+	width: auto;
+	height: 70px;
+	background-color: gray;
+	margin: 0;	
+	
+}
+ 
+#search{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+
+nav a{
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 25px;
+	color: orange;
+	float: right;
+	text-decoration: none;
+	margin-right: 15px;
+	margin-left: 10px;
+}
+
+
+nav a:hover{
+	color: white;
+}
+
+
+
+/*                       CONTENT
+--------------------------------------------------------*/
+	
+#content{
+	width: 1300px;
+	height: 700px;
+	background-color: white;
+	margin-left: auto;
+    margin-right: auto;
+	
+}
+
+
+/*                       FOOTER
+--------------------------------------------------------*/
+footer{
+	width: 1300px;
+	height: 10px;
+	background-color: orange;
+	margin-left: auto;
+    margin-right: auto;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+
+     
