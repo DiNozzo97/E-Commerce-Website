@@ -18,16 +18,16 @@ body{
 /*                       HEADER	
 --------------------------------------------------------*/
 header{
-	width: auto;
+	width: 1300px;
 	height: 40px;
 	background-color: orange;
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
+	 
 }
 
 #login1{
 	float:right;
     margin-right:10px;
+	margin-top: 2px; /* button has to be moved up to the header */
 	
   
 }
@@ -36,22 +36,74 @@ header{
 /*                     NAV PANEL
 --------------------------------------------------------*/
 nav{
-	width: auto;
-	height: 70px;
+	width: 1300px;
+	height: 100px;
 	background-color: gray;
-	margin: 0;	
-	
-}
- 
-#search{
 	margin-left: auto;
     margin-right: auto;
+	border-bottom: solid 20px orange; /* not working */
+	
 }
 
 
-nav a{
+#logo{
+	margin-top: -10px;
+}
+ 
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+
+
+
+/*nav a{
 	font-family: Impact, Charcoal, sans-serif;
-	font-size: 25px;
+	font-size: 15px;
 	color: orange;
 	float: right;
 	text-decoration: none;
@@ -62,7 +114,7 @@ nav a{
 
 nav a:hover{
 	color: white;
-}
+}*/
 
 
 
@@ -71,10 +123,20 @@ nav a:hover{
 	
 #content{
 	width: 1300px;
-	height: 700px;
-	background-color: white;
+	height: 575px;
+	background-color: #DCDCDC;
 	margin-left: auto;
     margin-right: auto;
+	
+}
+
+
+#carousel-example-generic{
+	margin-top: 90px;
+}
+
+#delivery {
+	margin-left: 175px;
 	
 }
 
