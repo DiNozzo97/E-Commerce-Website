@@ -1,0 +1,42 @@
+
+/* The Main body Background */
+body {
+    background: linear-gradient(to left, #0B486B , #F56217);
+}
+
+/* Center/Style Main Box*/
+#box {
+    margin: auto;
+    background-color: rgba(255,255,255,0.3);
+    height: 300px;
+    width: 500px;
+    position: absolute;
+    margin: -150px 0 0 -250px;
+    left: 50%;
+    top: 50%;
+    border-radius: 50px;
+    border-width: thin;
+    box-shadow: 2px;
+}
+
+/* Center/Style text fields */
+#admin-login input {
+    margin: auto;
+    width: 300px;
+    margin-top: 5px;
+}
+
+/* add margin space to login button */
+#admin-login button {
+    margin-top: 20px;
+}
+
+/* Center Logo */
+#logo {
+    margin-left: 146px;
+}
+
+/* vertically centre box content within the box */
+#box-content {
+    margin-top: 50px;
+}

@@ -1,0 +1,4 @@
+/* Position the logo better in the Navigation bar */
+#logo {
+    margin-top: -20px;
+}
