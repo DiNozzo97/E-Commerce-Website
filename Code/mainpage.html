@@ -1,180 +1,284 @@
 <! DOCTYPE html>
 <html>
-<head>
-    <title>MovieBox</title>
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="mainpage.css" rel="stylesheet" type="text/css" />
-</head>
+    <head>
+        <title>MovieBox</title>
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="mainpage.css" rel="stylesheet" type="text/css" />
+    </head>
 
-<body>
-    <div id="wrapper">
+    <body>
+        <div id="wrapper">
 
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
 
 
-            <!-- ------------------ HEADER --------------------- -->
-            <header>   
+                <!-- ------------------ HEADER --------------------- -->
+                <header>   
 
-                <button type="login" id="login1" class="btn btn-default">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>Login</button>
+                    <button type="login" id="login1" class="btn btn-default" data-toggle="modal" data-target="#loginModal">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>Login</button>
 
-                    <div class="dropdown">
+                    <div class="dropdown"> <!-- TIMBO DISCUSS AT MEETING: Add Width Property? Overlap button -->
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>Categories<span class="caret"></span></button>
 
-                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">See All</a></li>
-                                <li><a href="#">Best Selling</a></li>
-                                <li><a href="#">Latest Releases</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-submenu">
-                                    <a tabindex="-1" href="#">Genres</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a tabindex="-1" href="#">Action</a></li>
-                                        <li><a href="#">Adventure</a></li>
-                                        <li><a href="#">Animation</a></li>
-                                        <li><a href="#">Drama</a></li>
-                                        <li><a href="#">Family</a></li>
-                                        <li><a href="#">Historical</a></li>
-                                        <li><a href="#">Horror</a></li>
-                                        <li><a href="#">Romance</a></li>
-                                        <li><a href="#">Science Fiction</a></li>
-                                        <li><a href="#">Thriller</a></li>
-                                        <li><a href="#">Western</a></li>
-                                    </ul>	
-                                </div> 
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">See All</a></li>
+                            <li><a href="#">Best Selling</a></li>
+                            <li><a href="#">Latest Releases</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Genres</a>
+                                <ul class="dropdown-menu">
+                                    <li><a tabindex="-1" href="#">Action</a></li>
+                                    <li><a href="#">Adventure</a></li>
+                                    <li><a href="#">Animation</a></li>
+                                    <li><a href="#">Drama</a></li>
+                                    <li><a href="#">Family</a></li>
+                                    <li><a href="#">Historical</a></li>
+                                    <li><a href="#">Horror</a></li>
+                                    <li><a href="#">Romance</a></li>
+                                    <li><a href="#">Science Fiction</a></li>
+                                    <li><a href="#">Thriller</a></li>
+                                    <li><a href="#">Western</a></li>
+                                </ul>	
+                            </div> 
+                        </header>
 
 
-                            </header>
+                    <!-- ------------------ NAV PANEL ------------------- -->
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="mainpage.html">
+                                <img alt="Brand" src="logo.png" id="logo"><!--improve logo-->
+                            </a>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
 
-
-                            <!-- ------------------ NAV PANEL ------------------- -->
-                            <div class="container-fluid">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                   <a class="navbar-brand" href="mainpage.html">
-                                    <img alt="Brand" src="logo.png" id="logo"><!--improve logo-->
-                                </a>
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
+                        <form class="navbar-form navbar-left" form id="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
                             </div>
-
-                            <form class="navbar-form navbar-left" form id="search">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                </div>
-                                <button type="button" id="searchbutton" class="btn btn-default" aria-label="Left Align">
-                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                </button>
-                            </form>
+                            <button type="button" id="searchbutton" class="btn btn-default" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </form>
 
 
-                            <ul class="navbar-right">
-                              <li><a href="#" id="cart"><i class="fa fa-shopping-cart"></i><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart <span class="badge">3</span></a></li>
-                          </ul> <!-- end navbar-right -->
+                        <ul class="navbar-right">
+                            <li><a href="#" id="cart"><i class="fa fa-shopping-cart"></i><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart <span class="badge">3</span></a></li>
+                        </ul> <!-- end navbar-right -->
 
 
 
-                      </div><!-- /.navbar-collapse -->
-                  </div><!-- /.container-fluid -->
-              </nav>
+                    </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+            </nav>
 
 
 
 
-              <!-- ------------------ CONTENT ------------------- -->
+            <!-- ------------------ CONTENT ------------------- -->
 
-              <div id="content">
+            <div id="content">
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                  <!-- Indicators -->
-                  <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
-                </ol>
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                    </ol>
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                      <img src="http://placehold.it/1200x315" alt="...">
-                      <div class="carousel-caption">
-                         <h3>Caption Text</h3>
-                     </div>
-                 </div>
-                 <div class="item">
-                  <img src="http://placehold.it/1200x315" alt="...">
-                  <div class="carousel-caption">
-                     <h3>Caption Text</h3>
-                 </div>
-             </div>
-             <div class="item">
-              <img src="http://placehold.it/1200x315" alt="...">
-              <div class="carousel-caption">
-                 <h3>Caption Text</h3>
-             </div>
-         </div>
-         <div class="item">
-          <img src="http://placehold.it/1200x315" alt="...">
-          <div class="carousel-caption">
-             <h3>Caption Text</h3>
-         </div>
-     </div>
-     <div class="item">
-      <img src="http://placehold.it/1200x315" alt="...">
-      <div class="carousel-caption">
-      	<h3>Caption Text</h3>
-      </div>
-  </div>
-</div>
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="http://placehold.it/1200x315" alt="...">
+                            <div class="carousel-caption">
+                                <h3>Caption Text</h3>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="http://placehold.it/1200x315" alt="...">
+                            <div class="carousel-caption">
+                                <h3>Caption Text</h3>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="http://placehold.it/1200x315" alt="...">
+                            <div class="carousel-caption">
+                                <h3>Caption Text</h3>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="http://placehold.it/1200x315" alt="...">
+                            <div class="carousel-caption">
+                                <h3>Caption Text</h3>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="http://placehold.it/1200x315" alt="...">
+                            <div class="carousel-caption">
+                                <h3>Caption Text</h3>
+                            </div>
+                        </div>
+                    </div>
 
-<!-- Controls -->
-<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-</a>
-<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right"></span>
-</a>
-<section style=""></section>
-<section id="deliverySquare" style="float: left; width:25%;">
-    <img src="delivery.png" id="delivery">
-    <h1> Next Day Delivery</h1>
-    <p> fhfhosi fsijfsidjfoisjfoi dsfjosidjfoidsf oidfjoisjfois sojfosif djflksfj dsfljlsdkfjlksd cjoisjvoiv dscsdjclksd vjdvoijsdics vvkljxlvkjsiodv vjoixjvosidjo</p>
-</section>   
-<section style="float: left; width:25%;">
-    <img src="tick.png" id="subscribe">
-    <h1> Subscribe </h1>
-    <p> fhfhosi fsijfsidjfoisjfoi dsfjosidjfoidsf oidfjoisjfois sojfosif djflksfj dsfljlsdkfjlksd cjoisjvoiv dscsdjclksd vjdvoijsdics vvkljxlvkjsiodv vjoixjvosidjo</p>
-</section>
-<section style="float: left; width:25%;">
-    <img src="feedback.png" id="feedback" >
-    <h1> Give us Feedback</h1>
-    <p> fhfhosi fsijfsidjfoisjfoi dsfjosidjfoidsf oidfjoisjfois sojfosif djflksfj dsfljlsdkfjlksd cjoisjvoiv dscsdjclksd vjdvoijsdics vvkljxlvkjsiodv vjoixjvosidjo</p>
-</section>
-</div><!-- end of content-->
-
-
-<footer></footer>
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    <section style=""></section>
+                    <section id="deliverySquare" style="float: left; width:25%;">
+                        <img src="delivery.png" id="delivery">
+                        <h1> Next Day Delivery</h1>
+                        <p> fhfhosi fsijfsidjfoisjfoi dsfjosidjfoidsf oidfjoisjfois sojfosif djflksfj dsfljlsdkfjlksd cjoisjvoiv dscsdjclksd vjdvoijsdics vvkljxlvkjsiodv vjoixjvosidjo</p>
+                    </section>   
+                    <section style="float: left; width:25%;">
+                        <img src="tick.png" id="subscribe">
+                        <h1> Subscribe </h1>
+                        <p> fhfhosi fsijfsidjfoisjfoi dsfjosidjfoidsf oidfjoisjfois sojfosif djflksfj dsfljlsdkfjlksd cjoisjvoiv dscsdjclksd vjdvoijsdics vvkljxlvkjsiodv vjoixjvosidjo</p>
+                    </section>
+                    <section style="float: left; width:25%;">
+                        <img src="feedback.png" id="feedback" >
+                        <h1> Give us Feedback</h1>
+                        <p> fhfhosi fsijfsidjfoisjfoi dsfjosidjfoidsf oidfjoisjfois sojfosif djflksfj dsfljlsdkfjlksd cjoisjvoiv dscsdjclksd vjdvoijsdics vvkljxlvkjsiodv vjoixjvosidjo</p>
+                    </section>
+                </div><!-- end of content-->
 
 
-</div><!--end of wrapper-->
+                <footer></footer>
 
-</body>
 
-<script>
-	$('.carousel').carousel({
-		interval: 3000
-	})
-</script>
+            </div><!--end of wrapper-->
 
-<a href="https://icons8.com/web-app/487/Delivery">Delivery icon credits</a>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <!-- MONIKA - The following code is me playing with forms - you should be able to ignore it for now! -Timbo -->
+            <!--     Login Modal (This overlays the page when the user clicks login)       -->
+            <div id="loginModal" class="modal fade" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h2 class="modal-title">Login</h2>
+                        </div><!-- /.modal-header -->
+                        <div class="modal-body">
+                            <div id="loginAlert"></div>
+                            <form id="loginForm" class="form-horizontal">
 
-</html>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="emailLogin">Email Address</label>  
+                                    <div class="col-md-6">
+                                        <input id="emailLogin" name="emailLogin" type="text" placeholder="email address" class="form-control input-md">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="passwordLogin">Password</label>  
+                                    <div class="col-md-6">
+                                        <input id="passwordLogin" name="passwordLogin" type="password" placeholder="password" class="form-control input-md">
+                                    </div>
+                                </div>
+                                <button id="loginButton" type="submit" class="btn btn-info center-block">Login</button>
+                            </form>
+                        </div><!-- /.modal-body -->
+                        <div class="modal-footer">
+                            <p class="help-block">No account? <a href="#" data-toggle="modal" data-target="#registerModal">Create one!</a></p>
+                        </div><!-- /.modal-footer -->
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /#loginModal -->
+
+
+            <!-- Modal displayed for the user to register -->
+            <div id="registerModal" class="modal fade" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h2 class="modal-title">Register</h2>
+                        </div><!-- /.modal-header -->
+                        <div class="modal-body">
+                            <div id="registerAlert"></div>
+                            <form class="form-horizontal">
+
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="firstNameRegister">First Name</label>  
+                                    <div class="col-md-6">
+                                        <input id="firstNameRegister" name="firstNameRegister" type="text" placeholder="first name" class="form-control input-md">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="lastNameRegister">Last Name</label>  
+                                    <div class="col-md-6">
+                                        <input id="lastNameRegister" name="lastNameRegister" type="text" placeholder="last name" class="form-control input-md">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="emailRegister">Email Address</label>  
+                                    <div class="col-md-6">
+                                        <input id="emailRegister" name="emailRegister" type="text" placeholder="email address" class="form-control input-md">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="passwordRegister">Password</label>  
+                                    <div class="col-md-6">
+                                        <input id="passwordRegister" name="passwordRegister" type="password" placeholder="password" class="form-control input-md">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="passwordRegister">Confirm Password</label>  
+                                    <div class="col-md-6">
+                                        <input id="confirmPasswordRegister" name="confirmPasswordRegister" type="password" placeholder="confirm password" class="form-control input-md">
+                                    </div>
+                                </div>
+
+                                <button id="registerButton"type="submit" class="btn btn-info center-block">Register</button>
+                            </form>
+                        </div><!-- /.modal-body -->
+                        <div class="modal-footer">
+                            <p class="help-block">Already have an account? <a id="registerToSignIn" href="#" data-dismiss="modal">Sign in!</a></p>
+                        </div><!-- /.modal-footer -->
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /#registerModal -->
+
+
+            </body>
+
+        <script>
+            $('.carousel').carousel({
+                interval: 3000
+            })
+        </script>
+
+        <a href="https://icons8.com/web-app/487/Delivery">Delivery icon credits</a>
+
+        </html>
 
