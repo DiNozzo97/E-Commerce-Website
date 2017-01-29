@@ -153,4 +153,13 @@ footer{
 	border-bottom-right-radius: 15px;
 }
 
+
+/*                       MODALS
+---------------------------------------------------------*/
+/* Add spacing to DOB field in register form */
+.registerMarginOveride {
+    margin-bottom: 15px;
+    margin-left: -5px;
+}
+
      
