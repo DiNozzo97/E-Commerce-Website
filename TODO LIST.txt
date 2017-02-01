@@ -1,0 +1,5 @@
+- Search Results Page - MONIKA
+- Item information Page - MONIKA
+- Order Review Page - TIMBO
+- Order Confirmation Page - YUSUF
+- Mainpage Basket - TIMBO
