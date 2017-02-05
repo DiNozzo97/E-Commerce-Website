@@ -45,6 +45,10 @@ nav{
 	
 }
 
+.dropdown {
+    position: absolute;
+}
+
 
 #logo{
 	margin-top: -10px;
@@ -127,13 +131,10 @@ nav a:hover{
 	background-color: #DCDCDC;
 	margin-left: auto;
     margin-right: auto;
+    margin-top: 90px;
 	
 }
 
-
-#carousel-example-generic{
-	margin-top: 90px;
-}
 
 #deliverySquare {
 	margin-left: 175px;
@@ -217,4 +218,27 @@ ul.dropdown-cart li .item-right input{
 
 }
 
+/*                   CHECKOUT TABLE
+---------------------------------------------------------*/
+
+.table-vert-middle > tbody > tr > td {
+     vertical-align: middle;
+}
+
+/*                   MISC HACKS
+---------------------------------------------------------*/
+
+.shift-70 {
+    margin-left: 70px;
+}
+
+/* Overide default bootstrap table striping color*/
+.table-striped>tbody>tr:nth-child(even)>td, 
+.table-striped>tbody>tr:nth-child(even)>th {
+   background-color: #ffe0a8;
+ }
+
+.table-striped>thead>tr:nth-child(odd)>th {
+   background-color: #ffe0a8;
+ }
      
