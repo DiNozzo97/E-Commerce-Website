@@ -1,5 +1,11 @@
 - Search Results Page - MONIKA
 - Item information Page - MONIKA
-- Order Review Page - TIMBO
-- Order Confirmation Page - YUSUF
-- Mainpage Basket - TIMBO
+- Setup Auto Incrementing Order Numbers in DB - TIMBO
+
+ON WEDNESDAY:
+- Sort Out Contribution Table
+- Screenshot all Pages
+- Review Everything
+- Combine Database Report + Project Report
+- Go through Specification of the First Submission
+- SUBMIT!!!
