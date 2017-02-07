@@ -2,10 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>MovieBox</title>
+    <title>My Orders|MovieBox</title>
+    <!-- Import Libraries (Not our code) -->
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Import Our custom stylesheet -->
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -14,7 +16,6 @@
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
 
-
             <!-- ------------------ HEADER --------------------- -->
             <header>   
 
@@ -22,221 +23,214 @@
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Welcome John
                       <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                      <li><a href="#" data-toggle="modal" data-target="#editUserModal">Edit My Details</a></li>
-                        <li><a href="myOrders.html">My Orders</a></li>
-                        <li><a href="mainpage.html">Logout</a></li>
-                    </ul>
-                </div>
+                          <li><a href="#" data-toggle="modal" data-target="#editUserModal">Edit My Details</a></li>
+                          <li><a href="myOrders.html">My Orders</a></li>
+                          <li><a href="mainpage.html">Logout</a></li>
+                      </ul>
+                  </div>
 
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>Categories<span class="caret"></span></button>
+                  <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>Categories<span class="caret"></span></button>
 
-                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">See All</a></li>
-                                <li><a href="#">Best Selling</a></li>
-                                <li><a href="#">Latest Releases</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-submenu">
-                                    <a tabindex="-1" href="#">Genres</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a tabindex="-1" href="#">Action</a></li>
-                                        <li><a href="#">Adventure</a></li>
-                                        <li><a href="#">Animation</a></li>
-                                        <li><a href="#">Drama</a></li>
-                                        <li><a href="#">Family</a></li>
-                                        <li><a href="#">Historical</a></li>
-                                        <li><a href="#">Horror</a></li>
-                                        <li><a href="#">Romance</a></li>
-                                        <li><a href="#">Science Fiction</a></li>
-                                        <li><a href="#">Thriller</a></li>
-                                        <li><a href="#">Western</a></li>
-                                    </ul>	
-                                </div> 
-                            </header>
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">See All</a></li>
+                            <li><a href="#">Best Selling</a></li>
+                            <li><a href="#">Latest Releases</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Genres</a>
+                                <ul class="dropdown-menu">
+                                    <li><a tabindex="-1" href="#">Action</a></li>
+                                    <li><a href="#">Adventure</a></li>
+                                    <li><a href="#">Animation</a></li>
+                                    <li><a href="#">Drama</a></li>
+                                    <li><a href="#">Family</a></li>
+                                    <li><a href="#">Historical</a></li>
+                                    <li><a href="#">Horror</a></li>
+                                    <li><a href="#">Romance</a></li>
+                                    <li><a href="#">Science Fiction</a></li>
+                                    <li><a href="#">Thriller</a></li>
+                                    <li><a href="#">Western</a></li>
+                                </ul>	
+                            </div> 
+                        </header>
 
 
-                            <!-- ------------------ NAV PANEL ------------------- -->
-                            <div class="container-fluid">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                    <a class="navbar-brand" href="mainpage.html">
-                                        <img alt="Brand" src="media/logo.png" id="logo"><!--improve logo-->
-                                    </a>
-                                    
+                        <!-- ------------------ NAV PANEL ------------------- -->
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="mainpage.html">
+                                    <img alt="Brand" src="media/logo.png" id="logo"><!--improve logo-->
+                                </a>
+
+                            </div>
+
+                            <form class="navbar-form navbar-left" form id="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search">
                                 </div>
+                                <a href="searchResults.html"><button type="button" id="searchbutton" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button></a>
+                            </form>
 
-                                <form class="navbar-form navbar-left" form id="search">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                    </div>
-                                    <a href="searchResults.html"><button type="button" id="searchbutton" class="btn btn-default" aria-label="Left Align">
-                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                    </button></a>
-                                </form>
-
-                                <!-- ------------------ SHOPPING CART ------------------- -->
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li class="dropdown">
-                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> 1 Items<span class="caret"></span></a>
-                                      <ul class="dropdown-menu dropdown-cart" role="menu">
-                                          <li>
-                                              <span class="item">
-                                                <span class="item-left">
-                                                    <img src="media/products/insideOut.jpg" alt="" width="50px" />
-                                                    <span class="item-info">
-                                                        <a href="product.html"><span>Inside Out</span></a>
-                                                        <span>£14.99</span>
-                                                    </span>
-                                                </span>
-                                                <span class="item-right">
-                                                    <button class="btn btn-xs btn-success">+</button>
-                                                    <input type="text" name="qty" id="qty" value="2" disabled>
-                                                    <button class="btn btn-xs btn-danger">-</button>
+                            <!-- ------------------ SHOPPING CART ------------------- -->
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> 1 Items<span class="caret"></span></a>
+                                  <ul class="dropdown-menu dropdown-cart" role="menu">
+                                      <li>
+                                          <span class="item">
+                                            <span class="item-left">
+                                                <img src="media/products/insideOut.jpg" alt="" width="50px" />
+                                                <span class="item-info">
+                                                    <a href="product.html"><span>Inside Out</span></a>
+                                                    <span>£14.99</span>
                                                 </span>
                                             </span>
-                                        </li>
-                                        <li><p class="cartTotal"><strong>Total: £<span>29.98</span></strong></p></li>
-                                        <li class="divider"></li>
-                                        <li><a class="text-center" href="checkout.html">Checkout</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                                            <span class="item-right">
+                                                <button class="btn btn-xs btn-success">+</button>
+                                                <input type="text" name="qty" id="qty" value="2" disabled>
+                                                <button class="btn btn-xs btn-danger">-</button>
+                                            </span>
+                                        </span>
+                                    </li>
+                                    <li><p class="cartTotal"><strong>Total: £<span>29.98</span></strong></p></li>
+                                    <li class="divider"></li>
+                                    <li><a class="text-center" href="checkout.html">Checkout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                </nav>
+                </div>
+            </nav>
+
+            <!-- ------------------ CONTENT ------------------- -->
+
+            <div id="content" class="container">
+                <div class="container">
+                    <h1>My Orders</h1>
+                </div>
+                <!--    Table to display list of Orders    -->
+                <table class="table table-striped">
+                    <!--        Column Headings        -->
+                    <thead>
+                        <tr>
+                            <th>Order No</th>
+                            <th>Date/Time</th>
+                            <th>Status</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <!--       Table Data         -->
+                    <tbody>
+                        <tr>
+                            <td>1000</td>
+                            <td>18/01/2017 21:50</td>
+                            <td>Delivered</td>
+                            <td>
+                                <!--             View Button              -->
+                                <button class="btn btn-primary" id="viewOrderButton" data-toggle="modal" data-target="#viewOrderModal">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <footer></footer>
+        </div>
 
 
-
-
-                <!-- ------------------ CONTENT ------------------- -->
-
-                <div id="content" class="container">
-                    <div class="container">
-                        <h1>My Orders</h1>
+        <!-- Modal displayed for the user to edit their details -->
+        <div id="editUserModal" class="modal fade" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!--            Edit User Modal Header            -->                        
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2 class="modal-title">Edit Details</h2>
+                        <p class="help-block text-center">Edit the information below to update your profile. <br>If you wish to change your password, enter your new password and then confirm it, <br> otherwise your password will remain.</p>
                     </div>
-                    <!--    Table to display list of Orders    -->
-            <table class="table table-striped">
-                <!--        Column Headings        -->
-                <thead>
-                    <tr>
-                        <th>Order No</th>
-                        <th>Date/Time</th>
-                        <th>Status</th>
-                        <th>View</th>
-                    </tr>
-                </thead>
-                <!--       Table Data         -->
-                <tbody>
-                    <tr>
-                        <td>1000</td>
-                        <td>18/01/2017 21:50</td>
-                        <td>Delivered</td>
-                        <td>
-                            <!--             View Button              -->
-                            <button class="btn btn-primary" id="viewOrderButton" data-toggle="modal" data-target="#viewOrderModal">View</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    <!--            Edit User Modal Body            --> 
+                    <div class="modal-body">
+                        <div id="editUserAlert"></div>
+                        <!--              Register Main Form              -->                           
+                        <form id="editUserForm" class="form-horizontal" method="post">
 
-                </div><!-- end of content-->
-
-
-                <footer></footer>
-
-
-            </div><!--end of wrapper-->
-
-
-            <!-- Modal displayed for the user to edit their details -->
-            <div id="editUserModal" class="modal fade" data-keyboard="false">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!--            Edit User Modal Header            -->                        
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h2 class="modal-title">Edit Details</h2>
-                            <p class="help-block text-center">Edit the information below to update your profile. <br>If you wish to change your password, enter your new password and then confirm it, <br> otherwise your password will remain.</p>
-                        </div>
-                        <!--            Edit User Modal Body            --> 
-                        <div class="modal-body">
-                            <div id="editUserAlert"></div>
-                            <!--              Register Main Form              -->                           
-                            <form id="editUserForm" class="form-horizontal" method="post">
-
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="firstNameEditUser">First Name</label>  
-                                    <div class="col-md-6">
-                                        <input id="firstNameEditUser" name="firstNameEditUser" type="text" placeholder="first name" class="form-control input-md" value="John">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="firstNameEditUser">First Name</label>  
+                                <div class="col-md-6">
+                                    <input id="firstNameEditUser" name="firstNameEditUser" type="text" placeholder="first name" class="form-control input-md" value="John">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="lastNameEditUser">Last Name</label>  
-                                    <div class="col-md-6">
-                                        <input id="lastNameEditUser" name="lastNameEditUser" type="text" placeholder="last name" class="form-control input-md" value="Smith">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="lastNameEditUser">Last Name</label>  
+                                <div class="col-md-6">
+                                    <input id="lastNameEditUser" name="lastNameEditUser" type="text" placeholder="last name" class="form-control input-md" value="Smith">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="emailEditUser">Email Address</label>  
-                                    <div class="col-md-6">
-                                        <input id="emailEditUser" name="emailEditUser" type="text" placeholder="email address" class="form-control input-md" value="john@johnsmith.com">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="emailEditUser">Email Address</label>  
+                                <div class="col-md-6">
+                                    <input id="emailEditUser" name="emailEditUser" type="text" placeholder="email address" class="form-control input-md" value="john@johnsmith.com">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="passwordEditUser">Password</label>  
-                                    <div class="col-md-6">
-                                        <input id="passwordEditUser" name="passwordEditUser" type="password" placeholder="password" class="form-control input-md">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="passwordEditUser">Password</label>  
+                                <div class="col-md-6">
+                                    <input id="passwordEditUser" name="passwordEditUser" type="password" placeholder="password" class="form-control input-md">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="passwordEditUser">Confirm Password</label>  
-                                    <div class="col-md-6">
-                                        <input id="confirmPasswordEditUser" name="confirmPasswordEditUser" type="password" placeholder="confirm password" class="form-control input-md">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="passwordEditUser">Confirm Password</label>  
+                                <div class="col-md-6">
+                                    <input id="confirmPasswordEditUser" name="confirmPasswordEditUser" type="password" placeholder="confirm password" class="form-control input-md">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="addressLine1EditUser">Address Line 1</label>  
-                                    <div class="col-md-6">
-                                        <input id="addressLine1EditUser" name="addressLine1EditUser" type="text" placeholder="address line 1" class="form-control input-md" value="Middlesex University">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="addressLine1EditUser">Address Line 1</label>  
+                                <div class="col-md-6">
+                                    <input id="addressLine1EditUser" name="addressLine1EditUser" type="text" placeholder="address line 1" class="form-control input-md" value="Middlesex University">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="addressLine2EditUser">Address Line 2</label>  
-                                    <div class="col-md-6">
-                                        <input id="addressLine2EditUser" name="addressLine2EditUser" type="text" placeholder="email address" class="form-control input-md" value="The Burroughs">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="addressLine2EditUser">Address Line 2</label>  
+                                <div class="col-md-6">
+                                    <input id="addressLine2EditUser" name="addressLine2EditUser" type="text" placeholder="email address" class="form-control input-md" value="The Burroughs">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="cityEditUser">City</label>  
-                                    <div class="col-md-6">
-                                        <input id="cityEditUser" name="cityEditUser" type="text" placeholder="city" class="form-control input-md" value="London">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="cityEditUser">City</label>  
+                                <div class="col-md-6">
+                                    <input id="cityEditUser" name="cityEditUser" type="text" placeholder="city" class="form-control input-md" value="London">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="postcodeEditUser">UK Postcode</label>  
-                                    <div class="col-md-6">
-                                        <input id="postcodeEditUser" name="postcodeEditUser" type="text" placeholder="uk postcode" class="form-control input-md" value="NW4 4BT">
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="postcodeEditUser">UK Postcode</label>  
+                                <div class="col-md-6">
+                                    <input id="postcodeEditUser" name="postcodeEditUser" type="text" placeholder="uk postcode" class="form-control input-md" value="NW4 4BT">
                                 </div>
+                            </div>
 
-                                <button id="editUserButton"type="submit" class="btn btn-success center-block">Save Changes</button>
-                            </form>
-                        </div>
+                            <button id="editUserButton"type="submit" class="btn btn-success center-block">Save Changes</button>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <!--    View Order Modal    -->
+        <!--    View Order Modal    -->
         <div id="viewOrderModal" class="modal fade" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -326,9 +320,6 @@
             </div>
         </div>
 
-
-
-        </body>
-
-        </html>
+    </body>
+    </html>
 

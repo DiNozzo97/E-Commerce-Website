@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <title>MovieBox</title>
+    <!-- Import Libraries (Not our code) -->
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Import Our custom stylesheet -->
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -14,7 +16,6 @@
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
 
-
             <!-- ------------------ HEADER --------------------- -->
             <header>   
 
@@ -22,14 +23,13 @@
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Welcome John
                       <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                      <li><a href="#" data-toggle="modal" data-target="#editUserModal">Edit My Details</a></li>
-                        <li><a href="myOrders.html">My Orders</a></li>
-                        <li><a href="mainpage.html">Logout</a></li>
-                    </ul>
-                </div>
+                          <li><a href="#" data-toggle="modal" data-target="#editUserModal">Edit My Details</a></li>
+                          <li><a href="myOrders.html">My Orders</a></li>
+                          <li><a href="mainpage.html">Logout</a></li>
+                      </ul>
+                  </div>
 
-
-                <div class="dropdown">
+                  <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>Categories<span class="caret"></span></button>
 
@@ -56,7 +56,6 @@
                             </div> 
                         </header>
 
-
                         <!-- ------------------ NAV PANEL ------------------- -->
                         <div class="container-fluid">
                             <!-- Brand and toggle get grouped for better mobile display -->
@@ -71,8 +70,8 @@
                                     <input type="text" class="form-control" placeholder="Search">
                                 </div>
                                 <a href="searchResults.html"><button type="button" id="searchbutton" class="btn btn-default" aria-label="Left Align">
-                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                    </button></a>
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button></a>
                             </form>
 
                             <!-- ------------------ SHOPPING CART ------------------- -->
@@ -106,12 +105,10 @@
                 </div>
             </nav>
 
-
-
-
             <!-- ------------------ CONTENT ------------------- -->
 
             <div id="content">
+                <!-- Slideshow -->
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
@@ -163,7 +160,7 @@
                     <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
-                    <section style=""></section>
+                    <!-- Bottom 'Info Panels' -->
                     <section id="deliverySquare" style="float: left; width:25%;">
                         <img src="media/delivery.png" id="delivery">
                         <h1> Next Day Delivery</h1>
@@ -179,15 +176,9 @@
                         <h1> Give us Feedback</h1>
                         <p> fhfhosi fsijfsidjfoisjfoi dsfjosidjfoidsf oidfjoisjfois sojfosif djflksfj dsfljlsdkfjlksd cjoisjvoiv dscsdjclksd vjdvoijsdics vvkljxlvkjsiodv vjoixjvosidjo</p>
                     </section>
-                </div><!-- end of content-->
-
-
+                </div>
                 <footer></footer>
-
-
-            </div><!--end of wrapper-->
-
-
+            </div>
 
 
             <!-- Modal displayed for the user to edit their details -->
@@ -276,14 +267,13 @@
                 </div>
             </div>
 
-
         </body>
 
         <script>
+            // Make the slideshow change automatically every 3 seconds
             $('.carousel').carousel({
                 interval: 3000
             });
-
         </script>
         </html>
 
