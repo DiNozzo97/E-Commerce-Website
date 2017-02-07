@@ -43,6 +43,7 @@
                 <!--        Column Headings        -->
                 <thead>
                     <tr>
+                        <th>Order No</th>
                         <th>Created At</th>
                         <th>Customer Name</th>
                         <th>Status</th>
@@ -52,6 +53,7 @@
                 <!--       Table Data         -->
                 <tbody>
                     <tr>
+                        <td>1000</td>
                         <td>18/01/2017 21:50</td>
                         <td>John Smith</td>
                         <td>Delivered</td>
@@ -80,6 +82,13 @@
                         <!--            Form to display the data            -->
                         <form id="existingOrderForm" class="form-horizontal" method="post">
                             <!--             Display each field with data               -->
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="orderNumber">Order No</label>  
+                                <div class="col-md-4">
+                                    <input id="orderNumber" name="orderNumber" type="number" class="form-control input-md" value="1000" disabled>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="orderCreated">Order Created</label>  

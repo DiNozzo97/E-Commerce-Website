@@ -7,6 +7,8 @@
     <script src="js/bootstrap.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="libraries/venobox/venobox.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="libraries/venobox/venobox.min.js"></script>
 </head>
 
 <body>
@@ -85,7 +87,7 @@
                                                 <span class="item-left">
                                                     <img src="media/products/insideOut.jpg" alt="" width="50px" />
                                                     <span class="item-info">
-                                                        <a><span>Inside Out</span></a>
+                                                        <a href="product.html"><span>Inside Out</span></a>
                                                         <span>£14.99</span>
                                                     </span>
                                                 </span>
@@ -121,6 +123,7 @@
                                 <h2>Inside Out</h2>
                                 <strong>£14.99</strong><br>
                                 <i>8717418468446</i><br>
+                                <a class="btn btn-danger venobox venoboxvid vbox-item btn-sm" data-gall="gall-video" data-type="youtube" href="https://youtu.be/WIDYqBMFzfg"><i class="fa fa-youtube"></i> Watch Trailer</a><br>
                                 <p>Studio: <strong>Walt Disney</strong></p>
                                 <p>Duration: <strong>91mins</strong></p>
                                 <p>Release Date: <strong>23rd November 2015</strong></p>
@@ -133,7 +136,8 @@
                     </div>
 
                     <div class="row">
-                    <div class="col-md-7 col-md-offset-2" id="productDescDetailTabs">
+
+                    <div class="col-md-6 col-md-offset-2" id="productDescDetailTabs">
 
                       <!-- Nav tabs -->
                       <ul class="nav nav-tabs" role="tablist">
@@ -263,9 +267,10 @@
                 </div>
             </div>
 
-
-
         </body>
+        <script>
+            $('.venobox').venobox(); 
+        </script>
 
         </html>
 
