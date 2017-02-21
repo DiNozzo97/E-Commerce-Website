@@ -11,6 +11,8 @@
     <script src='../js/jquery-3.1.1.min.js'></script>
     <!--    Import Bootstrap JS Library (NOT OUR CODE)    -->
     <script src='../js/bootstrap.min.js'></script>
+    <!-- Import Our custom scripts -->
+    <script src='js/customScripts.js'></script>
 </head>
 <body>
     <!--  This div represents the main box  -->
@@ -22,13 +24,18 @@
                 <img src="../media/logo.png">
             </div>
             <!--     This is the main Login form       -->
-            <form class="form-horizontal" id="admin-login" method="post" action="orders.html">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+            <div id="loginAlert"></div> 
+            <form class="form-horizontal" id="admin-login">
+            <div class="form-group">
+                <input type="email" class="form-control inputBox" id="emailLogin" name="emailLogin" placeholder="Email">
+                </div>
+                <div class="form-group">
+                <input type="password" class="form-control inputBox" id="passwordLogin" name="passwordLogin" placeholder="Password">
+                </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="loginButton"></label>
                     <div class="col-md-4 center-block">
-                        <a href="orders.html"><button id="loginButton" name="loginButton" class="btn btn-default center-block">Sign in</button></a>
+                        <input type="submit" id="loginButton" name="loginButton" class="btn btn-default center-block" onclick="return processLogin();" value="Login">
                     </div>  
                 </div>
             </form>

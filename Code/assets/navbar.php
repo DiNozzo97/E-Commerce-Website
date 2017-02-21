@@ -3,8 +3,10 @@
     <!-- ------------------ HEADER --------------------- -->
     <header>   
     <?php 
-    session_start();
-    if (isset($_SESSION['userID'])) { ?>
+    if (session_id() == "") // If the session hasn't been started
+        session_start(); // Start the session in order to load any session variables
+
+    if (isset($_SESSION['userID'])) { // If there is a user signed in then display the user menu?>
 
         <div class="dropdown"id="login1">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Welcome <?php echo $_SESSION['firstName']; ?>
@@ -15,7 +17,7 @@
                   <li><a href="assets/logout.php">Logout</a></li>
               </ul>
           </div>
-          <?php } else { ?>
+          <?php } else { // Otherwise display a login button ?>
             <button type="login" id="login1" class="btn btn-default" data-toggle="modal" data-target="#loginModal">
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>Login</button>
             <?php } ?>

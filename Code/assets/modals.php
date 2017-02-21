@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION['userID'])) { ?>
+if (isset($_SESSION['userID'])) { // If the user is signed in then add the following modals to the page ?> 
 <!-- Modal displayed for the user to edit their details -->
 <div id="editUserModal" class="modal fade" data-keyboard="false">
     <div class="modal-dialog">
@@ -85,7 +85,7 @@ if (isset($_SESSION['userID'])) { ?>
         </div>
     </div>
 </div>
-<?php } else { ?>
+<?php } else {  // Otherwise if they aren't signed in then add these modals ?>
 <!--     Login Modal (This overlays the page when the user clicks login)       -->
 <div id="loginModal" class="modal fade" data-keyboard="false">
     <div class="modal-dialog">

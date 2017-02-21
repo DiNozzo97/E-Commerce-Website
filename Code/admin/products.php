@@ -1,4 +1,8 @@
-
+<?php
+session_start();
+if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of staff
+    header('Location: ./'); // Then redirect them to the login page
+} ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,9 +33,9 @@
 
             <!--       Navbar buttons         -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="orders.html">Orders</a></li>
+                <li><a href="orders.php">Orders</a></li>
                 <li class="active"><a href="#">Products</a></li>
-                <li><a href="index.html">Log Out</a></li>
+                <li><a href="assets/logout.php">Log Out</a></li>
             </ul>
         </div>
     </nav>

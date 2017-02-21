@@ -21,15 +21,13 @@ body {
 }
 
 /* Center/Style text fields */
-#admin-login input {
+#admin-login .inputBox {
     margin: auto;
     width: 300px;
-    margin-top: 5px;
 }
 
-/* add margin space to login button */
-#admin-login button {
-    margin-top: 20px;
+.error-msg {
+    margin-left: 118px;
 }
 
 /* Center Logo */
@@ -39,5 +37,5 @@ body {
 
 /* vertically centre box content within the box */
 #box-content {
-    margin-top: 50px;
+    margin-top: 17px;
 }

@@ -1,3 +1,8 @@
+<?php 
+session_start();
+if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a customer
+    header('Location: ./mainpage.php'); // Then redirect them to the main page
+} ?>
 <! DOCTYPE html>
 <html>
 <head>

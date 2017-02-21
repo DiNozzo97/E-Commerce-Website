@@ -18,15 +18,16 @@ function processLogin() {
 		passwordLogin: attemptedPassword
 	};
 
+
 	$.ajax({ // AJAX Request
 		dataType: 'json',
 		type: 'POST',
-		url: '../assets/validateCustomerLogin.php',
+		url: './assets/validateStaffLogin.php',
 		data: data,
 		success: function(ajaxResponse) {
 			switch(ajaxResponse.result) {
 				case "successfulLogin": // If login is successful
-					location.reload(); // Refresh the page
+					window.location.href = './orders.php'; // Refresh the page
 					break;
 				case "incorrectCredentials": // If incorrect credentials were entered
 					alertActivator("login", "danger", "The email address or password you entered is incorrect.", false); // Display an alert
@@ -34,7 +35,7 @@ function processLogin() {
 					break;
 				default: // Otherwise
 					$.each(ajaxResponse, function(key, value) { // For each key-value pair returned in the JSON response (each field not completed)
-						var errorMsg = '<label class="error-msg">'+value+'</label>'; // The label text that will be displayedd, reminding the user to enter the missing field
+						var errorMsg = '<label class="error-msg text-danger">'+value+'</label>'; // The label text that will be displayedd, reminding the user to enter the missing field
 						$('.form-group:has(input[name="' + key + '"])').addClass('has-error'); // Make the field group red
 						$('div > input[name="' + key + '"]').after(errorMsg); //Insert the error message directly after the input box
 					});
