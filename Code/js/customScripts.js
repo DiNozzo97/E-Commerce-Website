@@ -36,7 +36,7 @@ function processLogin() {
 					$.each(ajaxResponse, function(key, value) { // For each key-value pair returned in the JSON response (each field not completed)
 						var errorMsg = '<label class="error-msg">'+value+'</label>'; // The label text that will be displayedd, reminding the user to enter the missing field
 						$('.form-group:has(input[name="' + key + '"])').addClass('has-error'); // Make the field group red
-						$('div > input[name="' + key + '"]').after(errorMsg); //Insert the error message directly after the input box
+						$('div > input[name="' + key + '"]').before(errorMsg); //Insert the error message directly after the input box
 					});
 			}
 		},
@@ -44,8 +44,25 @@ function processLogin() {
 	return false;
 }
 
+
 function clearErrors() {
 	$(".form-group.has-error").removeClass('has-error');
 	$("label.error-msg, .alert").remove();
 
 }
+
+
+
+$( document ).ready(function() { // When the page has loaded
+
+	$('#loginModal').on('hidden.bs.modal', function () { // When the login modal is closed
+	 	clearErrors(); // Clear all errors
+	 	$('input[name*="Login"]','#loginForm').val(''); // Clear all the fields in the form
+
+	});
+});
+
+
+
+
+
