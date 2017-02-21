@@ -14,6 +14,7 @@ if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a custome
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Import Our custom stylesheet -->
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <script src="js/customScripts.js"></script>
 </head>
 
 <body>

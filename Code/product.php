@@ -11,6 +11,7 @@
     <script type="text/javascript" src="libraries/venobox/venobox.min.js"></script>
     <!-- Import Our custom stylesheet -->
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <script src="js/customScripts.js"></script>
 </head>
 <body>
     <div id="wrapper">

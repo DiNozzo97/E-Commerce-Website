@@ -9,6 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Import Our custom stylesheet -->
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <script src="js/customScripts.js"></script>
 </head>
 
 <body>
