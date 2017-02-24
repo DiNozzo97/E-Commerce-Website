@@ -79,6 +79,33 @@ function validateCustomerEditData() {
 	return false;
 }
 
+function viewOrder(orderNum) {
+ 	$.ajax({ // AJAX Request
+ 		dataType: 'json',
+ 		type: 'POST',
+ 		url: '../assets/viewOrder.php',
+ 		data: {orderNum: orderNum}, // Provide the php script with the order number
+ 		success: function(ajaxResponse) {
+ 			if (ajaxResponse.result == "error") {
+ 				alert("This order doesn't belong to you!");
+ 				return;
+ 			}
+
+			$.each(ajaxResponse.orderDetails, function(key, value) { // For each pair returned
+				$('#'+key).val(value); // Set the value of the key field in the form to the value returned
+			});
+
+			$.each(ajaxResponse.lineItems, function(key, item) { // For each item
+				var tablerow = "<tr><td><img src='" + item.artwork + "' width='50px'></td><td>" + item.title + "</td><td>" + item.qty + "</td><td>£" + item.unitPrice + "</td><td>£" + item.linePrice + "</td></tr>"; // Prepare a table row in a string
+				$("#lineItems tbody").append(tablerow); // Add the table row to the table
+			});
+
+			$('#viewOrderModal').modal('show'); // Show the modal
+ 		}
+ 	});
+ 	return false;
+}
+
 // Clears all error messages from all forms
 function clearErrors() {
 	$(".form-group.has-error").removeClass('has-error');

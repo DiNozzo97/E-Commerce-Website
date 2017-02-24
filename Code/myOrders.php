@@ -1,4 +1,5 @@
 <?php 
+require 'vendor/autoload.php'; // Import the MongoDB library
 session_start();
 if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a customer
     header('Location: ./mainpage.php'); // Then redirect them to the main page
@@ -7,7 +8,7 @@ if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a custome
 <html>
 <head>
     <meta charset="utf-8">
-    <title>My Orders|MovieBox</title>
+    <title>My Orders | MovieBox</title>
     <!-- Import Libraries (Not our code) -->
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -41,15 +42,30 @@ if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a custome
                     </thead>
                     <!--       Table Data         -->
                     <tbody>
-                        <tr>
-                            <td>1000</td>
-                            <td>18/01/2017 21:50</td>
-                            <td>Delivered</td>
+                    <?php
+                    $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
+
+                    $collection = $client->movie_box->orders; // Select the database and collection      
+
+                    $cursor = $collection->find(['customer.id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])]); // Find the documents that contain the customer's ID
+                    foreach ($cursor as $document) { // For each order
+
+                        $lastUpdated = $document['updated']; // get the updated mongo DateTime object
+                        $lastUpdated = $lastUpdated->toDateTime(); // Convert it to a PHP DateTime object
+                        $lastUpdated = $lastUpdated->format('d/m/Y H:i'); // Turn it into a pretty formatted string
+                        echo 
+                        "<tr>
+                            <td>" . $document['order_number'] . "</td>
+                            <td>" . $lastUpdated . "</td>
+                            <td>" . $document['status'] . "</td>
                             <td>
                                 <!--             View Button              -->
-                                <button class="btn btn-primary" id="viewOrderButton" data-toggle="modal" data-target="#viewOrderModal">View</button>
+                                <button class='btn btn-primary' id='viewOrderButton' onclick='return viewOrder(" . $document['order_number'] . ");'>View</button>
                             </td>
-                        </tr>
+                        </tr>";
+                    }
+
+                    ?>
                     </tbody>
                 </table>
 
@@ -76,14 +92,14 @@ if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a custome
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="orderNumber">Order No</label>  
                                 <div class="col-md-4">
-                                    <input id="orderNumber" name="orderNumber" type="number" class="form-control input-md" value="1000" disabled>
+                                    <input id="orderNumber" name="orderNumber" type="number" class="form-control input-md" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="orderCreated">Order Created</label>  
                                 <div class="col-md-4">
-                                    <input id="orderCreated" name="orderCreated" type="datetime" class="form-control input-md" value="18/01/2017 21:50" disabled>
+                                    <input id="orderCreated" name="orderCreated" type="datetime" class="form-control input-md" disabled>
                                 </div>
                             </div>
 
@@ -91,27 +107,27 @@ if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a custome
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="lastModified">Last Modified</label>  
                                 <div class="col-md-4">
-                                    <input id="lastModified" name="lastModified" type="datetime" class="form-control input-md" value="18/01/2017 21:50" disabled>
+                                    <input id="lastModified" name="lastModified" type="datetime" class="form-control input-md" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="status">Status</label>  
                                 <div class="col-md-4">
-                                    <input id="status" name="status" type="text" class="form-control input-md" value="Delivered" disabled>
+                                    <input id="status" name="status" type="text" class="form-control input-md" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="address">Delivery Address</label>
                                 <div class="col-md-4">                     
-                                    <textarea rows="5" cols="1000" class="form-control" id="address" name="address" disabled>Middlesex University&#13;&#10The Burroughs&#13;&#10London&#13;&#10NW4 4BT&#13;&#10United Kingdom</textarea>
+                                    <textarea rows="5" cols="1000" class="form-control" id="address" name="address" disabled></textarea>
                                 </div>
                             </div>
 
                             <!--    Table to display Products Purchased    -->
                             <div class="container-fluid">
-                                <table class="table table-striped">
+                                <table class="table table-striped" id="lineItems">
                                     <!--        Column Headings        -->
                                     <thead>
                                         <tr>
@@ -124,13 +140,6 @@ if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a custome
                                     </thead>
                                     <!--       Table Data         -->
                                     <tbody>
-                                        <tr>
-                                            <td><img src="media/products/insideOut.jpg" width="50px"></td>
-                                            <td>Inside Out</td>
-                                            <td>2</td>
-                                            <td>£14.99</td>
-                                            <td>£29.98</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
