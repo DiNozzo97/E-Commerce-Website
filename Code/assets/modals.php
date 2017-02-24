@@ -19,21 +19,21 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="firstNameEditUser">First Name</label>  
                         <div class="col-md-6">
-                            <input id="firstNameEditUser" name="firstNameEditUser" type="text" placeholder="first name" class="form-control input-md" value="John">
+                            <input id="firstNameEditUser" name="firstNameEditUser" type="text" placeholder="first name" class="form-control input-md">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="lastNameEditUser">Last Name</label>  
                         <div class="col-md-6">
-                            <input id="lastNameEditUser" name="lastNameEditUser" type="text" placeholder="last name" class="form-control input-md" value="Smith">
+                            <input id="lastNameEditUser" name="lastNameEditUser" type="text" placeholder="last name" class="form-control input-md">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="emailEditUser">Email Address</label>  
                         <div class="col-md-6">
-                            <input id="emailEditUser" name="emailEditUser" type="text" placeholder="email address" class="form-control input-md" value="john@johnsmith.com">
+                            <input id="emailEditUser" name="emailEditUser" type="text" placeholder="email address" class="form-control input-md">
                         </div>
                     </div>
 
@@ -45,7 +45,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="passwordEditUser">Confirm Password</label>  
+                        <label class="col-md-4 control-label" for="confirmPasswordEditUser">Confirm Password</label>  
                         <div class="col-md-6">
                             <input id="confirmPasswordEditUser" name="confirmPasswordEditUser" type="password" placeholder="confirm password" class="form-control input-md">
                         </div>
@@ -54,28 +54,28 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="addressLine1EditUser">Address Line 1</label>  
                         <div class="col-md-6">
-                            <input id="addressLine1EditUser" name="addressLine1EditUser" type="text" placeholder="address line 1" class="form-control input-md" value="Middlesex University">
+                            <input id="addressLine1EditUser" name="addressLine1EditUser" type="text" placeholder="address line 1" class="form-control input-md">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="addressLine2EditUser">Address Line 2</label>  
                         <div class="col-md-6">
-                            <input id="addressLine2EditUser" name="addressLine2EditUser" type="text" placeholder="email address" class="form-control input-md" value="The Burroughs">
+                            <input id="addressLine2EditUser" name="addressLine2EditUser" type="text" placeholder="email address" class="form-control input-md">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="cityEditUser">City</label>  
                         <div class="col-md-6">
-                            <input id="cityEditUser" name="cityEditUser" type="text" placeholder="city" class="form-control input-md" value="London">
+                            <input id="cityEditUser" name="cityEditUser" type="text" placeholder="city" class="form-control input-md">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="postcodeEditUser">UK Postcode</label>  
                         <div class="col-md-6">
-                            <input id="postcodeEditUser" name="postcodeEditUser" type="text" placeholder="uk postcode" class="form-control input-md" value="NW4 4BT">
+                            <input id="postcodeEditUser" name="postcodeEditUser" type="text" placeholder="uk postcode" class="form-control input-md">
                         </div>
                     </div>
 
