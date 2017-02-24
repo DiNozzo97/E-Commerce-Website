@@ -38,13 +38,48 @@ function processLogin() {
 						$('.form-group:has(input[name="' + key + '"])').addClass('has-error'); // Make the field group red
 						$('div > input[name="' + key + '"]').before(errorMsg); //Insert the error message directly after the input box
 					});
+				}
 			}
-		},
-	});
+		});
 	return false;
 }
 
+// This function is executed when the user presses the 'save' button when editting their details
+function validateCustomerEditData() {
+	clearErrors(); // Clear any existing error messages
 
+	var data = { // Store the email/password in a data object that can be easily sent via ajax
+		firstNameEditUser: $("#firstNameEditUser").val(),
+		lastNameEditUser: $("#lastNameEditUser").val(),
+		emailEditUser: $("#emailEditUser").val(),
+		passwordEditUser: $("#passwordEditUser").val(),
+		confirmPasswordEditUser: $("#confirmPasswordEditUser").val(),
+		addressLine1EditUser: $("#addressLine1EditUser").val(),
+		addressLine2EditUser: $("#addressLine2EditUser").val(),
+		cityEditUser: $("#cityEditUser").val(),
+		postcodeEditUser: $("#postcodeEditUser").val()
+	};
+
+	$.ajax({ // AJAX Request
+		dataType: 'json',
+		type: 'POST',
+		url: '../assets/editCustomerDetails.php',
+		data: {type: "update", data: data},
+		success: function(ajaxResponse) {
+			if (ajaxResponse.result == 'success') // If all was validated successfully
+				$('#editUserModal').modal('hide'); // Hide the modal
+			else 
+			$.each(ajaxResponse, function(key, value) { // For each key-value pair returned in the JSON response (each field not completed)
+				var errorMsg = '<label class="error-msg">'+value+'</label>'; // The label text that will be displayedd, reminding the user to enter the missing field
+				$('.form-group:has(input[name="' + key + '"])').addClass('has-error'); // Make the field group red
+				$('div > input[name="' + key + '"]').before(errorMsg); //Insert the error message directly after the input box
+			});
+			}
+		});
+	return false;
+}
+
+// Clears all error messages from all forms
 function clearErrors() {
 	$(".form-group.has-error").removeClass('has-error');
 	$("label.error-msg, .alert").remove();
@@ -59,7 +94,24 @@ $( document ).ready(function() { // When the page has loaded
 	 	clearErrors(); // Clear all errors
 	 	$('input[name*="Login"]','#loginForm').val(''); // Clear all the fields in the form
 
-	});
+	 });
+
+	$('#editUserModal').on('show.bs.modal', function () { // When the Edit User Details modal is displayed
+	 	clearErrors(); // Clear all errors
+	 	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/editCustomerDetails.php',
+	 		data: {type: "fetch"}, // Tell the PHP code this is the fetch part of edit user
+	 		success: function(ajaxResponse) {
+	 			$.each(ajaxResponse, function(key, value) { // For each pair returned
+	 				$('#'+key).val(value); // Set the value of the key field in the form to the value returned
+	 			});
+	 		}
+	 	});
+	 });
+
+
 });
 
 
