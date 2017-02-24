@@ -79,7 +79,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                         </div>
                     </div>
 
-                    <button id="editUserButton"type="submit" class="btn btn-success center-block">Save Changes</button>
+                    <input id="editUserButton" type="submit" class="btn btn-success center-block" onclick="return validateCustomerEditData();">Save Changes</input>
                 </form>
             </div>
         </div>
@@ -114,7 +114,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                             <input id="passwordLogin" name="passwordLogin" type="password" placeholder="password" class="form-control input-md">
                         </div>
                     </div>
-                    <input id="loginButton" type="button" class="btn btn-info center-block" onclick="processLogin();" value="Login">
+                    <input id="loginButton" type="submit" class="btn btn-info center-block" onclick="return processLogin();" value="Login">
                 </form>
             </div>
             <!--           Login Modal Footer              -->
