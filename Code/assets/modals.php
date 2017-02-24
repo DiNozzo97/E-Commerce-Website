@@ -79,7 +79,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                         </div>
                     </div>
 
-                    <input id="editUserButton" type="submit" class="btn btn-success center-block" onclick="return validateCustomerEditData();">Save Changes</input>
+                    <input id="editUserButton" type="submit" class="btn btn-success center-block" onclick="return validateCustomerEditData();" value="Save Changes">
                 </form>
             </div>
         </div>
