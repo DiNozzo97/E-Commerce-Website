@@ -27,7 +27,7 @@ function processLogin() {
 		success: function(ajaxResponse) {
 			switch(ajaxResponse.result) {
 				case "successfulLogin": // If login is successful
-					window.location.href = './orders.php'; // Refresh the page
+					window.location.href = './orders.php'; // Redirect to the Orders page
 					break;
 				case "incorrectCredentials": // If incorrect credentials were entered
 					alertActivator("login", "danger", "The email address or password you entered is incorrect.", false); // Display an alert
@@ -43,6 +43,103 @@ function processLogin() {
 		},
 	});
 	return false;
+}
+
+
+function viewOrder(orderNum) {
+ 	$.ajax({ // AJAX Request
+ 		dataType: 'json',
+ 		type: 'POST',
+ 		url: 'assets/viewOrder.php',
+ 		data: {orderNum: orderNum}, // Provide the php script with the order number
+ 		success: function(ajaxResponse) {
+ 			if (ajaxResponse.result == "error") {
+ 				alert("This order doesn't appear to exist :(");
+ 				return;
+ 			}
+
+			$.each(ajaxResponse.orderDetails, function(key, value) { // For each pair returned
+				$('#'+key).val(value); // Set the value of the key field in the form to the value returned
+			});
+
+			$("#lineItems tbody > tr").remove(); // Clear any rows already in the table
+
+			$.each(ajaxResponse.lineItems, function(key, item) { // For each item
+				var tablerow = "<tr><td>" + item.barcode + "</td><td>" + item.title + "</td><td>" + item.qty + "</td><td>£" + item.unitPrice + "</td><td>£" + item.linePrice + "</td></tr>"; // Prepare a table row in a string
+				$("#lineItems tbody").append(tablerow); // Add the table row to the table
+			});
+
+			$('#viewOrderModal').modal('show'); // Show the modal
+ 		}
+ 	});
+ 	return false;
+}
+
+
+
+function showUpdateOrder (orderNum) {
+	$.ajax({ // AJAX Request
+ 		dataType: 'json',
+ 		type: 'POST',
+ 		url: 'assets/showUpdateOrder.php',
+ 		data: {orderNum: orderNum}, // Provide the php script with the order number
+ 		success: function(ajaxResponse) {
+ 			if (ajaxResponse.result == "error") {
+ 				alert("This order doesn't appear to exist :(");
+ 				return;
+ 			}
+
+ 			$("#newStatusSelect select").val(ajaxResponse.status); // Set the current status as the currently set option
+ 			$("#statusUpdateSubmit").attr("onclick", "return updateOrderStatus("+ orderNum +");")
+			$('#updateStatusModal').modal('show'); // Show the modal
+ 		}
+ 	});
+}
+
+function updateOrderStatus (orderNum) {
+	var newStatus = $("#newStatusSelect select").val(); // fetch the new status
+	var data = { // Create an object to send to the PHP script
+		orderNum: orderNum,
+		status: newStatus
+	};
+
+	$.ajax({ // AJAX Request
+ 		dataType: 'json',
+ 		type: 'POST',
+ 		url: 'assets/updateOrderStatus.php',
+ 		data: data, // Provide the php script with the order number and new status
+ 		success: function(ajaxResponse) {
+ 			if (ajaxResponse.result == "error") {
+ 				alert("Oops, an error has occured :(");
+ 				return;
+ 			} else if (ajaxResponse.result == "success")
+ 				$('#updateStatusModal').modal('hide'); // Show the modal
+ 				location.reload(); // Refresh the page
+ 		}
+ 	});
+}
+
+function showDeleteOrder(orderNum) {
+	$("#orderDeleteYes").attr("onclick", "return deleteOrder("+ orderNum +");");
+	$('#deleteOrderModal').modal('show'); // Show the modal
+
+}
+
+function deleteOrder(orderNum) {
+	$.ajax({ // AJAX Request
+ 		dataType: 'json',
+ 		type: 'POST',
+ 		url: 'assets/deleteOrder.php',
+ 		data: {orderNum: orderNum}, // Provide the php script with the order number
+ 		success: function(ajaxResponse) {
+ 			if (ajaxResponse.result == "error") {
+ 				alert("Oops, an error has occured :(");
+ 				return;
+ 			} else if (ajaxResponse.result == "success")
+ 				$('#deleteOrderModal').modal('hide'); // Show the modal
+ 				location.reload(); // Refresh the page
+ 		}
+ 	});
 }
 
 function clearErrors() {

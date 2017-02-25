@@ -47,7 +47,8 @@ if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a custome
 
                     $collection = $client->movie_box->orders; // Select the database and collection      
 
-                    $cursor = $collection->find(['customer.id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])]); // Find the documents that contain the customer's ID
+                    $cursor = $collection->find(['customer.id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['sort' => ['created' => -1]]); // Find the documents that contain the customer's ID and sort them in order of creation
+                    
                     foreach ($cursor as $document) { // For each order
 
                         $lastUpdated = $document['updated']; // get the updated mongo DateTime object

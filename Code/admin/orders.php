@@ -1,4 +1,5 @@
 <?php
+require '../vendor/autoload.php'; // Import the MongoDB library
 session_start();
 if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of staff
     header('Location: ./'); // Then redirect them to the login page
@@ -22,6 +23,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
     <script src='../js/bootstrap.min.js'></script>
     <!--    Import cust JS code    -->
     <script src="js/products.js"></script>
+    <script src='js/customScripts.js'></script>
 </head>
 
 <body>
@@ -58,18 +60,33 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
             </thead>
             <!--       Table Data         -->
             <tbody>
-                <tr>
-                    <td>1000</td>
-                    <td>18/01/2017 21:50</td>
-                    <td>John Smith</td>
-                    <td>Delivered</td>
-                    <td>
-                        <!--             Action Buttons               -->
-                        <button class="btn btn-primary" id="viewOrderButton" data-toggle="modal" data-target="#viewOrderModal">View</button>
-                        <button class="btn btn-success" id="updateStatusButton" data-toggle="modal" data-target="#updateStatusModal">Update Status</button>
-                        <button class="btn btn-danger" id="deleteOrderButton" data-toggle="modal" data-target="#deleteOrderModal">Delete</button>
-                    </td>
-                </tr>
+            <?php
+                    $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
+
+                    $collection = $client->movie_box->orders; // Select the database and collection      
+
+                    $cursor = $collection->find([], ['sort' => ['created' => -1]]); // Find all of the orders and sort them with the latest at the top
+                    foreach ($cursor as $document) { // For each order
+
+                        $created = $document['created']; // get the created mongo DateTime object
+                        $created = $created->toDateTime(); // Convert it to a PHP DateTime object
+                        $created = $created->format('d/m/Y H:i'); // Turn it into a pretty formatted string
+                        echo 
+                        "<tr>
+                            <td>" . $document['order_number'] . "</td>
+                            <td>" . $created . "</td>
+                            <td>" . $document['customer']['name'] . "</td>
+                            <td>" . $document['status'] . "</td>
+                            <td>
+                                <!--             Action Buttons               -->
+                                <button class='btn btn-primary' id='viewOrderButton' onclick='return viewOrder(" . $document['order_number'] . ");'>View</button>
+                                <button class='btn btn-success' id='updateStatusButton' onclick='return showUpdateOrder(" . $document['order_number'] . ");'>Update Status</button>
+                                <button class='btn btn-danger' id='deleteOrderButton' onclick='return showDeleteOrder(" . $document['order_number'] . ");'>Delete</button>
+                            </td>
+                        </tr>";
+                    }
+
+                    ?>
             </tbody>
         </table>
     </div>
@@ -92,14 +109,14 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="orderNumber">Order No</label>  
                             <div class="col-md-4">
-                                <input id="orderNumber" name="orderNumber" type="number" class="form-control input-md" value="1000" disabled>
+                                <input id="orderNumber" name="orderNumber" type="number" class="form-control input-md" disabled>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="orderCreated">Order Created</label>  
                             <div class="col-md-4">
-                                <input id="orderCreated" name="orderCreated" type="datetime" class="form-control input-md" value="18/01/2017 21:50" disabled>
+                                <input id="orderCreated" name="orderCreated" type="datetime" class="form-control input-md" disabled>
                             </div>
                         </div>
 
@@ -107,14 +124,14 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="lastModified">Last Modified</label>  
                             <div class="col-md-4">
-                                <input id="lastModified" name="lastModified" type="datetime" class="form-control input-md" value="18/01/2017 21:50" disabled>
+                                <input id="lastModified" name="lastModified" type="datetime" class="form-control input-md" disabled>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="status">Status</label>  
                             <div class="col-md-4">
-                                <input id="status" name="status" type="text" class="form-control input-md" value="Delivered" disabled>
+                                <input id="status" name="status" type="text" class="form-control input-md" disabled>
                             </div>
                         </div>
 
@@ -122,20 +139,20 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="customerName">Customer</label>  
                             <div class="col-md-7">
-                                <input id="customerName" name="customerName" type="text" class="form-control input-md" value="John Smith" disabled>
+                                <input id="customerName" name="customerName" type="text" class="form-control input-md" disabled>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="address">Delivery Address</label>
                             <div class="col-md-4">                     
-                                <textarea rows="5" cols="1000" class="form-control" id="address" name="address" disabled>Middlesex University&#13;&#10The Burroughs&#13;&#10London&#13;&#10NW4 4BT&#13;&#10United Kingdom</textarea>
+                                <textarea rows="5" cols="1000" class="form-control" id="address" name="address" disabled></textarea>
                             </div>
                         </div>
 
                         <!--    Table to display Products Purchased    -->
                         <div class="container-fluid">
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="lineItems">
                                 <!--        Column Headings        -->
                                 <thead>
                                     <tr>
@@ -148,13 +165,6 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                                 </thead>
                                 <!--       Table Data         -->
                                 <tbody>
-                                    <tr>
-                                        <td>8717418468446</td>
-                                        <td>Inside Out</td>
-                                        <td>2</td>
-                                        <td>£14.99</td>
-                                        <td>£29.98</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -187,14 +197,14 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                     <form class="form-horizontal" method="post">
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="statusSelect">Status</label>
-                            <div class="col-md-4">
+                            <div class="col-md-4" id="newStatusSelect">
                                 <select id="statusSelect" name="statusSelect" class="form-control">
                                     <option value="Ordered">Ordered</option>
                                     <option value="Dispatched">Dispatched</option>
                                     <option value="Delivered">Delivered</option>
                                 </select>
                             </div>
-                            <button type="button" class="btn btn-success">Update</button>
+                            <button type="button" id="statusUpdateSubmit" class="btn btn-success">Update</button>
                         </div>
                     </form>
                 </div>
@@ -213,7 +223,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                 </div>
                 <div class="modal-body">
                     <div class="settingsButtons">
-                        <button type="button" class="btn btn-success settings" >Yes</button>
+                        <button type="button" id="orderDeleteYes" class="btn btn-success settings" >Yes</button>
                         <button type="button" class="btn btn-danger settings" data-dismiss="modal">No</button>
                     </div>
                 </div>

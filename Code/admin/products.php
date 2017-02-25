@@ -20,6 +20,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
     <script src='../js/bootstrap.min.js'></script>
     <!--    Import cust JS code    -->
     <script src="js/products.js"></script>
+    <script src='js/customScripts.js'></script>
 </head>
 
 <body>
