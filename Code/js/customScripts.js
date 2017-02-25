@@ -94,6 +94,8 @@ function viewOrder(orderNum) {
 			$.each(ajaxResponse.orderDetails, function(key, value) { // For each pair returned
 				$('#'+key).val(value); // Set the value of the key field in the form to the value returned
 			});
+			
+			$("#lineItems tbody > tr").remove(); // Clear any rows already in the table
 
 			$.each(ajaxResponse.lineItems, function(key, item) { // For each item
 				var tablerow = "<tr><td><img src='" + item.artwork + "' width='50px'></td><td>" + item.title + "</td><td>" + item.qty + "</td><td>£" + item.unitPrice + "</td><td>£" + item.linePrice + "</td></tr>"; // Prepare a table row in a string
