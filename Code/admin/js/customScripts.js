@@ -142,6 +142,32 @@ function deleteOrder(orderNum) {
  	});
 }
 
+function viewProduct(barcode) {
+ 	$.ajax({ // AJAX Request
+ 		dataType: 'json',
+ 		type: 'POST',
+ 		url: 'assets/productDetails.php',
+ 		data: {barcode: barcode}, // Provide the php script with the order number
+ 		success: function(ajaxResponse) {
+ 			if (ajaxResponse.result == "error") {
+ 				alert("This product doesn't appear to exist :(");
+ 				return;
+ 			}
+
+			$.each(ajaxResponse.productDetails, function(key, value) { // For each pair returned
+				console.log(key + ' => ' + value);
+				$('#'+key).val(value); // Set the value of the key field in the form to the value returned
+			});
+
+			$("#existingProductForm :input").prop("disabled", true); // Disable the fields so that they can't be editted
+			$( "#saveButton" ).hide(); // hide the save button
+
+			$('#existingProduct').modal('show'); // Show the modal
+ 		}
+ 	});
+ 	return false;
+}
+
 function clearErrors() {
 	$(".form-group.has-error").removeClass('has-error');
 	$("label.error-msg, .alert").remove();

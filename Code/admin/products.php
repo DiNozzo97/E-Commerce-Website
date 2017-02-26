@@ -1,4 +1,5 @@
 <?php
+require '../vendor/autoload.php'; // Import the MongoDB library
 session_start();
 if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of staff
     header('Location: ./'); // Then redirect them to the login page
@@ -57,6 +58,30 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
             </thead>
             <!--       Table Data         -->
             <tbody>
+                <?php
+                $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
+
+                $collection = $client->movie_box->products; // Select the database and collection      
+
+                $cursor = $collection->find([], ['sort' => ['details.title' => 1]]); // Find all of the product and sort them alphabetically
+                foreach ($cursor as $document) { // For each product
+
+
+                    echo 
+                    "<tr>
+                        <td><img src='../" . $document['artwork'] . "' height='100px'></td>
+                        <td>" . $document['barcode'] . "</td>
+                        <td>" . $document['details']['title'] . "</td>
+                        <td>
+                            <!--             Action Buttons               -->
+                            <button class='btn btn-primary' id='viewProductButton' onclick='return viewProduct(" . $document['barcode'] . ");'>View</button>
+                            <button class='btn btn-success' id='editProductButton' onclick='return viewOrder(" . $document['barcode'] . ");'>Edit</button>
+                            <button class='btn btn-danger' id='deleteProductButton' onclick='return viewOrder(" . $document['barcode'] . ");'>Delete</button>
+                        </td>
+                    </tr>";
+                }
+
+                ?>
                 <tr>
                     <td><img src="../media/products/insideOut.jpg" height="100px"></td>
                     <td>8717418468446</td>
@@ -239,40 +264,40 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                     <form id="existingProductForm" class="form-horizontal" method="post">
                         <!--             Display each field with data               -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="barcode">Barcode</label>  
+                            <label class="col-md-4 control-label" for="existingBarcode">Barcode</label>  
                             <div class="col-md-4">
-                                <input id="barcode" name="barcode" type="text" placeholder="Barcode" class="form-control input-md" value="8717418468446">
+                                <input id="existingBarcode" name="existingBarcode" type="text" placeholder="Barcode" class="form-control input-md">
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="title">Title</label>  
+                            <label class="col-md-4 control-label" for="existingTitle">Title</label>  
                             <div class="col-md-7">
-                                <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md" value="Inside Out">
+                                <input id="existingTitle" name="existingTitle" type="text" placeholder="Title" class="form-control input-md">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="releaseDate">Release Date</label>  
+                            <label class="col-md-4 control-label" for="existingReleaseDate">Release Date</label>  
                             <div class="col-md-4">
-                                <input id="releaseDate" name="releaseDate" type="date" placeholder="dd/mm/yyyy" class="form-control input-md" value="2015-11-23">
+                                <input id="existingReleaseDate" name="existingReleaseDate" type="date" placeholder="dd/mm/yyyy" class="form-control input-md">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="director">Director</label>  
+                            <label class="col-md-4 control-label" for="existingDirector">Director</label>  
                             <div class="col-md-7">
-                                <input id="director" name="director" type="text" placeholder="eg.  Christopher Nolan,David Fincher" class="form-control input-md" value="Pete Docter">
+                                <input id="existingDirector" name="existingDirector" type="text" placeholder="eg.  Christopher Nolan,David Fincher" class="form-control input-md" >
                                 <span class="help-block">comma-seperated</span>  
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="duration">Duration</label>
+                            <label class="col-md-4 control-label" for="existingDuration">Duration</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input id="duration" name="duration" class="form-control" placeholder="Duration" type="text" value="91">
+                                    <input id="existingDuration" name="existingDuration" class="form-control" placeholder="Duration" type="text">
                                     <span class="input-group-addon">mins</span>
                                 </div>
 
@@ -280,87 +305,87 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="cast">Cast</label>  
+                            <label class="col-md-4 control-label" for="existingCast">Cast</label>  
                             <div class="col-md-7">
-                                <input id="cast" name="cast" type="text" placeholder="eg. Sophie Turner,Jack Nicholson" class="form-control input-md" value="Amy Poehler,Bill Hader,Lewis Black">
+                                <input id="existingCast" name="existingCast" type="text" placeholder="eg. Sophie Turner,Jack Nicholson" class="form-control input-md">
                                 <span class="help-block">comma-seperated</span>  
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="studio">Studio</label>  
+                            <label class="col-md-4 control-label" for="existingStudio">Studio</label>  
                             <div class="col-md-7">
-                                <input id="studio" name="studio" type="text" placeholder="eg. Warner Bros,Pixar" class="form-control input-md" value="Walt Disney">
-                                <span class="help-block">comma-seperated</span>  
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="category">Categories</label>  
-                            <div class="col-md-7">
-                                <input id="category" name="category" type="text" placeholder="eg. Animation,Children,Family" class="form-control input-md" value="Animation,Adventure,Comedy">
+                                <input id="existingStudio" name="existingStudio" type="text" placeholder="eg. Warner Bros,Pixar" class="form-control input-md">
                                 <span class="help-block">comma-seperated</span>  
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="language">Language</label>  
+                            <label class="col-md-4 control-label" for="existingCategory">Categories</label>  
                             <div class="col-md-7">
-                                <input id="language" name="language" type="text" placeholder="eg. French,English,Spanish" class="form-control input-md" value="English,Italian">
+                                <input id="existingCategory" name="existingCategory" type="text" placeholder="eg. Animation,Children,Family" class="form-control input-md">
+                                <span class="help-block">comma-seperated</span>  
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="existingLanguage">Language</label>  
+                            <div class="col-md-7">
+                                <input id="existingLanguage" name="existingLanguage" type="text" placeholder="eg. French,English,Spanish" class="form-control input-md">
                                 <span class="help-block">comma-seperated</span>  
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="format">Format</label>  
+                            <label class="col-md-4 control-label" for="existingFormat">Format</label>  
                             <div class="col-md-4">
-                                <input id="format" name="format" type="text" placeholder="Format" class="form-control input-md" value="DVD">
+                                <input id="existingFormat" name="existingFormat" type="text" placeholder="Format" class="form-control input-md">
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="certificate">Certificate</label>  
+                            <label class="col-md-4 control-label" for="existingCertificate">Certificate</label>  
                             <div class="col-md-2">
-                                <input id="certificate" name="certificate" type="text" placeholder="Cert" class="form-control input-md" value="U">
+                                <input id="existingCertificate" name="existingCertificate" type="text" placeholder="Cert" class="form-control input-md">
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="price">Price</label>
+                            <label class="col-md-4 control-label" for="existingPrice">Price</label>
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">£</span>
-                                    <input id="price" name="price" class="form-control" placeholder="0.00" type="text" value="14.99">
+                                    <input id="existingPrice" name="existingPrice" class="form-control" placeholder="0.00" type="text">
                                 </div>
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="quantity">Quantity Available</label>  
+                            <label class="col-md-4 control-label" for="existingQuantity">Quantity Available</label>  
                             <div class="col-md-2">
-                                <input id="quantity" name="quantity" type="text" placeholder="Qty" class="form-control input-md" value="12">
+                                <input id="existingQuantity" name="existingQuantity" type="text" placeholder="Qty" class="form-control input-md">
                             </div>
                         </div>
 
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="trailer">Trailer URL</label>  
+                            <label class="col-md-4 control-label" for="existingTrailer">Trailer URL</label>  
                             <div class="col-md-7">
-                                <input id="trailer" name="trailer" type="text" placeholder="http://youtube.com/examplevid" class="form-control input-md" value="https://www.youtube.com/watch?v=WIDYqBMFzfg">
+                                <input id="existingTrailer" name="existingTrailer" type="text" placeholder="http://youtube.com/examplevid" class="form-control input-md">
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="artwork">Artwork URL</label>  
+                            <label class="col-md-4 control-label" for="existingArtwork">Artwork URL</label>  
                             <div class="col-md-7">
-                                <input id="artwork" name="artwork" type="text" placeholder="http://example.com/image.jpg" class="form-control input-md" value="../media/products/insideOut.jpg">
+                                <input id="existingArtwork" name="existingArtwork" type="text" placeholder="http://example.com/image.jpg" class="form-control input-md">
                             </div>
                         </div>
 
