@@ -55,13 +55,13 @@ if (empty($document)) { // If no documents are returned (a bug has occured or so
 
 		$unitPrice = $item['unit_price']; // Store price in pence
 		$unitPrice = $unitPrice/100; // Make pounds
-		$unitPrice = money_format('%.2n', $unitPrice); // Make it 2 DP
+		$unitPrice = number_format((float)$unitPrice, 2, '.', ''); //to 2 DP 
 
 		$itemDetails['unitPrice'] = $unitPrice;
 
 		$linePrice = $item['line_price']; // Store price in pence
 		$linePrice = $linePrice/100; // Make pounds
-		$linePrice = money_format('%.2n', $linePrice); // Make it 2 DP
+		$linePrice = number_format((float)$linePrice, 2, '.', ''); //to 2 DP 
 
 		$itemDetails['linePrice'] = $linePrice;
 
@@ -71,7 +71,7 @@ if (empty($document)) { // If no documents are returned (a bug has occured or so
 
 	$total = $document['total_order_value']; // Store price in pence
 	$total = $total/100; // Make pounds
-	$total = money_format('%.2n', $total); // Make it 2 DP
+	$total = number_format((float)$total, 2, '.', ''); //to 2 DP 
 
 	$returnArray['orderDetails']['orderTotal'] = $total;
 

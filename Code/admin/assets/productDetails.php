@@ -72,7 +72,7 @@ if (empty($document)) { // If no documents are returned (a bug has occured)
 
 	$price = $document['price']; // Store price in pence
 	$price = $price/100; // Make pounds
-	$price = money_format('%.2n', $price); // Make it 2 DP
+	$price = number_format((float)$price, 2, '.', ''); //to 2 DP 
 	$returnArray['productDetails']['existingPrice'] = $price;
 
 	$returnArray['productDetails']['existingQuantity'] = $document['quantity_available'];
