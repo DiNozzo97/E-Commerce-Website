@@ -224,7 +224,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="quantity">Quantity Available</label>  
                             <div class="col-md-2">
-                                <input id="quantity" name="quantity" type="number" placeholder="Qty" class="form-control input-md">
+                                <input id="quantity" name="quantity" type="number" placeholder="Qty" class="form-control input-md" min="0">
 
                             </div>
                         </div>
