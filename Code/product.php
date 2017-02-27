@@ -13,33 +13,33 @@ $price = number_format((float)$price, 2, '.', ''); //to 2 DP
  
 $languages  = "";
 foreach($document['details']['audio_language'] as $language) {
-		$languages = $languages . $language . "," ;
+		$languages = $languages . $language . ", " ;
 }
-$languages = substr($languages,0,-1); //Delete the final comma
+$languages = substr($languages,0,-2); //Delete the final comma
 
 $studios  = "";
 foreach($document['details']['studio'] as $studio) {
-		$studios = $studios . $studio . "," ;
+		$studios = $studios . $studio . ", " ;
 }
-$studios = substr($studios,0,-1); //Delete the final comma
+$studios = substr($studios,0,-2); //Delete the final comma
 
 $directors  = "";
 foreach($document['details']['director'] as $director) {
-		$directors = $directors . $director . "," ;
+		$directors = $directors . $director . ", " ;
 }
-$directors = substr($directors,0,-1); //Delete the final comma
+$directors = substr($directors,0,-2); //Delete the final comma
 
 $categories  = "";
 foreach($document['details']['category'] as $category) {
-		$categories = $categories . $category . "," ;
+		$categories = $categories . $category . ", " ;
 }
-$categories = substr($categories,0,-1); //Delete the final comma
+$categories = substr($categories,0,-2); //Delete the final comma
 
 $cast  = "";
 foreach($document['details']['cast'] as $castMember) {
-		$cast = $cast . $castMember . "," ;
+		$cast = $cast . $castMember . ", " ;
 }
-$cast = substr($cast,0,-1); //Delete the final comma
+$cast = substr($cast,0,-2); //Delete the final comma
 
 $release = $document['details']['release_date'];
 $release = $release->toDateTime(); //Convert to a php date/time object
@@ -84,6 +84,7 @@ $release = $release->format('jS F Y'); //Formatted string
                             <a class="btn btn-danger venobox venoboxvid vbox-item btn-sm" data-gall="gall-video" data-type="youtube" href="<?=$document['details']['trailer_url'];?>"><i class="fa fa-youtube"></i> Watch Trailer</a><br>
                             <p>Studio: <strong><?=$studios;?></strong></p>
                             <p>Duration: <strong><?=$document['details']['duration'];?>mins</strong></p>
+                            <p>Certificate: <strong><?=$document['details']['certificate'];?></strong></p>
                             <p>Release Date: <strong><?=$release;?></strong></p>
                         </div>
                         <!-- right 'add to backet' box -->
