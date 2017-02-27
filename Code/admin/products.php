@@ -75,23 +75,12 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             <!--             Action Buttons               -->
                             <button class='btn btn-primary' id='viewProductButton' onclick='return viewProduct(" . $document['barcode'] . ");'>View</button>
                             <button class='btn btn-success' id='editProductButton' onclick='return showEditProduct(" . $document['barcode'] . ");'>Edit</button>
-                            <button class='btn btn-danger' id='deleteProductButton' onclick='return viewOrder(" . $document['barcode'] . ");'>Delete</button>
+                            <button class='btn btn-danger' id='deleteProductButton' onclick='return showDeleteProduct(" . $document['barcode'] . ");'>Delete</button>
                         </td>
                     </tr>";
                 }
 
                 ?>
-                <tr>
-                    <td><img src="../media/products/insideOut.jpg" height="100px"></td>
-                    <td>8717418468446</td>
-                    <td>Inside Out</td>
-                    <td>
-                        <!--             Action Buttons               -->
-                        <button class="btn btn-primary" id="viewButton">View</button>
-                        <button class="btn btn-success" id="editButton">Edit</button>
-                        <button class="btn btn-danger" id="deleteButton">Delete</button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -410,7 +399,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
     </div>
     
     <!-- Modal to confirm product Delete -->
-    <div id="deleteProduct" class="modal fade" data-keyboard="false">
+    <div id="deleteProductModal" class="modal fade" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -419,7 +408,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                 </div>
                 <div class="modal-body">
                     <div class="settingsButtons">
-                        <button type="button" class="btn btn-success settings" >Yes</button>
+                        <button type="button" class="btn btn-success settings" id="productDeleteYes" >Yes</button>
                         <button type="button" class="btn btn-danger settings" data-dismiss="modal">No</button>
                     </div>
                 </div>

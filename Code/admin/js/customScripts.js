@@ -245,6 +245,29 @@ function saveEditProduct() {
 	return false;
 }
 
+function showDeleteProduct(barcode) {
+	$("#productDeleteYes").attr("onclick", "return deleteProduct("+ barcode +");");
+	$('#deleteProductModal').modal('show'); // Show the modal
+
+}
+
+function deleteProduct(barcode) {
+	$.ajax({ // AJAX Request
+ 		dataType: 'json',
+ 		type: 'POST',
+ 		url: 'assets/deleteProduct.php',
+ 		data: {barcode: barcode}, // Provide the php script with the barcode
+ 		success: function(ajaxResponse) {
+ 			if (ajaxResponse.result == "error") {
+ 				alert("Oops, an error has occured :(");
+ 				return;
+ 			} else if (ajaxResponse.result == "success")
+ 				$('#deleteProductModal').modal('hide'); // Hide the modal
+ 				location.reload(); // Refresh the page
+ 		}
+ 	});
+}
+
 function clearErrors() {
 	$(".form-group.has-error").removeClass('has-error');
 	$("label.error-msg, .alert").remove();
