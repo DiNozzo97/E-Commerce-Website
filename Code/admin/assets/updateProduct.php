@@ -11,6 +11,13 @@ if (isset($_POST['title']) and $_POST['title'] != "") { // If a title was provid
 	$errors['existingTitle'] = "Please enter a title"; // Add an error message to the errors array
 }
 
+if (isset($_POST['description']) and $_POST['description'] != "") { // If a title was provided
+	$title = filter_var($_POST['description'], FILTER_SANITIZE_STRING); // Sanitize the text provided 
+} else { // Otherwise
+	$errors['existingDescription'] = "Please enter a description"; // Add an error message to the errors array
+}
+
+
 if (isset($_POST['releaseDate']) and $_POST['releaseDate'] != "" and (preg_match('/\d{4}-\d{2}-\d{2}/', $_POST['releaseDate']) )) { // If a valid date was provided
 	$releaseDate = new MongoDB\BSON\UTCDateTime(new DateTime($_POST['releaseDate'])); // Create a mongo DateTime object from the given string
 } else { // Otherwise
@@ -107,6 +114,7 @@ $collection = $client->movie_box->products; // Select the database and collectio
 $update = $collection->updateOne( // Update the db document with all of the new field values
 		['barcode' => $barcode],
 		['$set' => ['details.title' => $title, 
+		'details.description' => $description,
 		'details.release_date' => $releaseDate,
 		'details.format' => $format,
 		'details.certificate' => $certificate,

@@ -19,8 +19,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
     <script src='../js/jquery-3.1.1.min.js'></script>
     <!--    Import Bootstrap JS Library (NOT OUR CODE)    -->
     <script src='../js/bootstrap.min.js'></script>
-    <!--    Import cust JS code    -->
-    <script src="js/products.js"></script>
+    <!--    Import custom JS code    -->
     <script src='js/customScripts.js'></script>
 </head>
 
@@ -123,6 +122,13 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             <label class="col-md-4 control-label" for="title">Title</label>  
                             <div class="col-md-7">
                                 <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="description">Description</label>  
+                            <div class="col-md-7">
+                                <textarea id="description" name="description" type="text" placeholder="Description" class="form-control input-md" rows="7" cols="50"></textarea>
                             </div>
                         </div>
 
@@ -275,6 +281,13 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             <label class="col-md-4 control-label" for="existingTitle">Title</label>  
                             <div class="col-md-7">
                                 <input id="existingTitle" name="existingTitle" type="text" placeholder="Title" class="form-control input-md">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="existingDescription">Description</label>  
+                            <div class="col-md-7">
+                                <textarea id="existingDescription" name="existingDescription" type="text" placeholder="Title" class="form-control input-md" rows="7" cols="50"></textarea>
                             </div>
                         </div>
 

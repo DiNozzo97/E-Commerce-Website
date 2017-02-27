@@ -23,6 +23,8 @@ if (empty($document)) { // If no documents are returned (a bug has occured)
 
 	$returnArray['productDetails']['existingTitle'] = $document['details']['title'];
 
+	$returnArray['productDetails']['existingDescription'] = $document['details']['description'];
+
 	$release = $document['details']['release_date'];
 	$release = $release->toDateTime(); // Convert it to a PHP DateTime object
 	$release = $release->format('Y-m-d'); // Turn it into a pretty formatted string

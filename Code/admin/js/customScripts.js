@@ -187,6 +187,7 @@ function saveEditProduct() {
 	clearErrors();
 	var barcode = $('#existingBarcode').val();
 	var title = $('#existingTitle').val();
+	var description = $('#existingDescription').val();
 	var releaseDate = $('#existingReleaseDate').val();
 	var director = $('#existingDirector').val();
 	var duration = $('#existingDuration').val();
@@ -204,6 +205,7 @@ function saveEditProduct() {
 	var editProductData = {
 		barcode: barcode,
 		title: title,
+		description: description,
 		releaseDate: releaseDate,
 		director: director,
 		duration: duration,
