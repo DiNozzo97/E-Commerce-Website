@@ -9,7 +9,7 @@ $collection = $client->movie_box->products; // Select the database and collectio
 $document = $collection->findOne(['barcode' => $barcode]); //Find the document that relates to the given barcode 
 $price = $document['price']; //Store the price in pennies
 $price = $price/100; //Convert into pounds
-$price = money_format('%.2n', $price); //Allows decimals
+$price = number_format((float)$price, 2, '.', ''); //to 2 DP 
  
 $languages  = "";
 foreach($document['details']['audio_language'] as $language) {
@@ -91,7 +91,7 @@ $release = $release->format('jS F Y'); //Formatted string
 							<?php
 							$quantity = $document['quantity_available'];
 							if ($quantity == 0) {
-								echo "<p class='text-error'>P<strong>roduct currently in stock</strong></p>";
+								echo "<p class='text-danger'><strong>Product currently not in stock</strong></p>";
 							} else {
 								echo "<p class='text-success'><strong>$quantity</strong> copies currently in stock</p>";
 								echo "<a class='btn btn-success' href='#'>Add to cart</a>";
