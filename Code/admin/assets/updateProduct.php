@@ -11,8 +11,8 @@ if (isset($_POST['title']) and $_POST['title'] != "") { // If a title was provid
 	$errors['existingTitle'] = "Please enter a title"; // Add an error message to the errors array
 }
 
-if (isset($_POST['description']) and $_POST['description'] != "") { // If a title was provided
-	$title = filter_var($_POST['description'], FILTER_SANITIZE_STRING); // Sanitize the text provided 
+if (isset($_POST['description']) and $_POST['description'] != "") { // If a description was provided
+	$description = filter_var($_POST['description'], FILTER_SANITIZE_STRING); // Sanitize the text provided 
 } else { // Otherwise
 	$errors['existingDescription'] = "Please enter a description"; // Add an error message to the errors array
 }
