@@ -33,6 +33,7 @@ if (empty($document)) { // If no documents are returned (a bug has occured)
 	foreach ($document['details']['director'] as $director) {
 		$directors = $directors . $director . ",";
 	}
+	$directors = substr($directors, 0, -1); // Delete the final comma
 	$returnArray['productDetails']['existingDirector'] = $directors;
 	
 	$returnArray['productDetails']['existingDuration'] = $document['details']['duration'];
@@ -41,24 +42,28 @@ if (empty($document)) { // If no documents are returned (a bug has occured)
 	foreach ($document['details']['cast'] as $member) {
 		$cast = $cast . $member . ",";
 	}
+	$cast = substr($cast, 0, -1); // Delete the final comma
 	$returnArray['productDetails']['existingCast'] = $cast;
 
 	$studios = "";
 	foreach ($document['details']['studio'] as $studio) {
 		$studios = $studios . $studio . ",";
 	}
+	$studios = substr($studios, 0, -1); // Delete the final comma
 	$returnArray['productDetails']['existingStudio'] = $studios;
 
 	$categories = "";
 	foreach ($document['details']['category'] as $category) {
 		$categories = $categories . $category . ",";
 	}
+	$categories = substr($categories, 0, -1); // Delete the final comma
 	$returnArray['productDetails']['existingCategory'] = $categories;
 
 	$languages = "";
 	foreach ($document['details']['audio_language'] as $language) {
 		$languages = $languages . $language . ",";
 	}
+	$languages = substr($languages, 0, -1); // Delete the final comma
 	$returnArray['productDetails']['existingLanguage'] = $languages;
 
 	$returnArray['productDetails']['existingFormat'] = $document['details']['format'];

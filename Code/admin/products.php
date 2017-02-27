@@ -75,7 +75,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <td>
                             <!--             Action Buttons               -->
                             <button class='btn btn-primary' id='viewProductButton' onclick='return viewProduct(" . $document['barcode'] . ");'>View</button>
-                            <button class='btn btn-success' id='editProductButton' onclick='return viewOrder(" . $document['barcode'] . ");'>Edit</button>
+                            <button class='btn btn-success' id='editProductButton' onclick='return showEditProduct(" . $document['barcode'] . ");'>Edit</button>
                             <button class='btn btn-danger' id='deleteProductButton' onclick='return viewOrder(" . $document['barcode'] . ");'>Delete</button>
                         </td>
                     </tr>";
@@ -145,7 +145,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             <label class="col-md-4 control-label" for="duration">Duration</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input id="duration" name="duration" class="form-control" placeholder="Duration" type="text">
+                                    <input id="duration" name="duration" class="form-control" placeholder="Duration" type="number">
                                     <span class="input-group-addon">mins</span>
                                 </div>
 
@@ -208,7 +208,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">£</span>
-                                    <input id="price" name="price" class="form-control" placeholder="0.00" type="text">
+                                    <input id="price" name="price" class="form-control" placeholder="0.00" min="0.01" step="0.01" type="number">
                                 </div>
 
                             </div>
@@ -218,7 +218,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="quantity">Quantity Available</label>  
                             <div class="col-md-2">
-                                <input id="quantity" name="quantity" type="text" placeholder="Qty" class="form-control input-md">
+                                <input id="quantity" name="quantity" type="number" placeholder="Qty" class="form-control input-md">
 
                             </div>
                         </div>
@@ -297,7 +297,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             <label class="col-md-4 control-label" for="existingDuration">Duration</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input id="existingDuration" name="existingDuration" class="form-control" placeholder="Duration" type="text">
+                                    <input id="existingDuration" name="existingDuration" class="form-control" placeholder="Duration" type="number">
                                     <span class="input-group-addon">mins</span>
                                 </div>
 
@@ -359,7 +359,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">£</span>
-                                    <input id="existingPrice" name="existingPrice" class="form-control" placeholder="0.00" type="text">
+                                    <input id="existingPrice" name="existingPrice" class="form-control" placeholder="0.00" min="0.01" step="0.01" type="number">
                                 </div>
                             </div>
                         </div>
@@ -368,7 +368,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="existingQuantity">Quantity Available</label>  
                             <div class="col-md-2">
-                                <input id="existingQuantity" name="existingQuantity" type="text" placeholder="Qty" class="form-control input-md">
+                                <input id="existingQuantity" name="existingQuantity" type="number" placeholder="Qty" class="form-control input-md">
                             </div>
                         </div>
 
@@ -389,7 +389,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             </div>
                         </div>
 
-                        <button id="saveButton"type="submit" class="btn btn-success">Save</button>
+                        <button id="saveButton"type="submit" class="btn btn-success" onclick="return saveEditProduct();">Save</button>
                     </form>
                 </div>
             </div>

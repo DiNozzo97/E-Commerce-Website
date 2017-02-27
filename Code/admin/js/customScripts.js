@@ -142,7 +142,7 @@ function deleteOrder(orderNum) {
  	});
 }
 
-function viewProduct(barcode) {
+function loadProductDetails(barcode) {
  	$.ajax({ // AJAX Request
  		dataType: 'json',
  		type: 'POST',
@@ -151,21 +151,96 @@ function viewProduct(barcode) {
  		success: function(ajaxResponse) {
  			if (ajaxResponse.result == "error") {
  				alert("This product doesn't appear to exist :(");
- 				return;
+ 				return "error";
  			}
 
 			$.each(ajaxResponse.productDetails, function(key, value) { // For each pair returned
-				console.log(key + ' => ' + value);
 				$('#'+key).val(value); // Set the value of the key field in the form to the value returned
 			});
 
-			$("#existingProductForm :input").prop("disabled", true); // Disable the fields so that they can't be editted
-			$( "#saveButton" ).hide(); // hide the save button
-
-			$('#existingProduct').modal('show'); // Show the modal
+			
  		}
  	});
  	return false;
+}
+
+function viewProduct(barcode) {
+	loadProductDetails(barcode);
+	$("#existingProductForm :input").prop("disabled", true); // Disable the fields so that they can't be editted
+	$( "#saveButton" ).hide(); // hide the save button
+
+	$('#existingProduct').modal('show'); // Show the modal
+	
+}
+
+function showEditProduct(barcode) {
+	loadProductDetails(barcode);
+	$("#existingProductForm :input").prop("disabled", false); // enable the fields so that they can be editted
+	$("#existingBarcode").prop("disabled", true); // lock the barcode field
+	$( "#saveButton" ).show(); // hide the save button
+
+	$('#existingProduct').modal('show'); // Show the modal
+	
+}
+
+function saveEditProduct() {
+	clearErrors();
+	var barcode = $('#existingBarcode').val();
+	var title = $('#existingTitle').val();
+	var releaseDate = $('#existingReleaseDate').val();
+	var director = $('#existingDirector').val();
+	var duration = $('#existingDuration').val();
+	var cast = $('#existingCast').val();
+	var studio = $('#existingStudio').val();
+	var category = $('#existingCategory').val();
+	var language = $('#existingLanguage').val();
+	var format = $('#existingFormat').val();
+	var certificate = $('#existingCertificate').val();
+	var price = $('#existingPrice').val();
+	var quantity = $('#existingQuantity').val();
+	var trailer = $('#existingTrailer').val();
+	var artwork = $('#existingArtwork').val();
+
+	var editProductData = {
+		barcode: barcode,
+		title: title,
+		releaseDate: releaseDate,
+		director: director,
+		duration: duration,
+		cast: cast,
+		studio: studio,
+		category: category,
+		language: language,
+		format: format,
+		certificate: certificate,
+		price: price,
+		quantity: quantity,
+		trailer: trailer,
+		artwork: artwork
+	};
+
+		$.ajax({ // AJAX Request
+		dataType: 'json',
+		type: 'POST',
+		url: './assets/updateProduct.php',
+		data: editProductData,
+		success: function(ajaxResponse) {
+			console.log(ajaxResponse);
+			switch(ajaxResponse.result) {
+				case "success": // If update is successful
+					$('#existingProduct').modal('hide'); // Show the modal
+					location.reload(); // Refresh the page
+					break;
+				default: // Otherwise
+					$.each(ajaxResponse, function(key, value) { // For each key-value pair returned in the JSON response (each field not completed)
+						var errorMsg = '<label class="error-msg text-danger">'+value+'</label>'; // The label text that will be displayedd, reminding the user to enter the missing field
+						$('.form-group:has(input[name="' + key + '"])').addClass('has-error'); // Make the field group red
+						$('div > input[name="' + key + '"]').after(errorMsg); //Insert the error message directly after the input box
+					});
+			}
+		},
+	});
+	return false;
 }
 
 function clearErrors() {
