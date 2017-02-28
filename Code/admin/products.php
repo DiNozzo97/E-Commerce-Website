@@ -223,7 +223,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="newTrailer">Trailer URL</label>  
                             <div class="col-md-7">
-                                <input id="newTrailer" name="newTrailer" type="text" placeholder="http://youtube.com/examplevid" class="form-control input-md">
+                                <input id="newTrailer" name="newTrailer" type="text" placeholder="https://youtu.be/exampleVid" class="form-control input-md">
 
                             </div>
                         </div>
@@ -232,7 +232,8 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="newArtwork">Artwork URL</label>  
                             <div class="col-md-7">
-                                <input id="newArtwork" name="newArtwork" type="text" placeholder="http://example.com/image.jpg" class="form-control input-md">
+                                <input id="newArtwork" name="newArtwork" type="text" placeholder="media/products/example.jpg" class="form-control input-md">
+                                <span class="help-block">URL relative to the website root <br>e.g. "media/products/example.jpg"</span>
 
                             </div>
                         </div>
@@ -379,7 +380,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="existingTrailer">Trailer URL</label>  
                             <div class="col-md-7">
-                                <input id="existingTrailer" name="existingTrailer" type="text" placeholder="http://youtube.com/examplevid" class="form-control input-md">
+                                <input id="existingTrailer" name="existingTrailer" type="text" placeholder="https://youtu.be/exampleVid" class="form-control input-md">
                             </div>
                         </div>
 
@@ -387,7 +388,8 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="existingArtwork">Artwork URL</label>  
                             <div class="col-md-7">
-                                <input id="existingArtwork" name="existingArtwork" type="text" placeholder="http://example.com/image.jpg" class="form-control input-md">
+                                <input id="existingArtwork" name="existingArtwork" type="text" placeholder="media/products/example.jpg" class="form-control input-md">
+                                <span class="help-block">URL relative to the website root <br>e.g. "media/products/example.jpg"</span>
                             </div>
                         </div>
 
