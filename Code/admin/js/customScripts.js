@@ -268,6 +268,74 @@ function deleteProduct(barcode) {
  	});
 }
 
+function showNewProduct() {
+	$('#newProductForm').find('textarea, :text, input[type=date], input[type=number]').val('');
+	$('#newProduct').modal('show'); // Show the modal
+	
+}
+
+function saveNewProduct() {
+	clearErrors();
+	var barcode = $('#newBarcode').val();
+	var title = $('#newTitle').val();
+	var description = $('#newDescription').val();
+	var releaseDate = $('#newReleaseDate').val();
+	var director = $('#newDirector').val();
+	var duration = $('#newDuration').val();
+	var cast = $('#newCast').val();
+	var studio = $('#newStudio').val();
+	var category = $('#newCategory').val();
+	var language = $('#newLanguage').val();
+	var format = $('#newFormat').val();
+	var certificate = $('#newCertificate').val();
+	var price = $('#newPrice').val();
+	var quantity = $('#newQuantity').val();
+	var trailer = $('#newTrailer').val();
+	var artwork = $('#newArtwork').val();
+
+	var newProductData = {
+		barcode: barcode,
+		title: title,
+		description: description,
+		releaseDate: releaseDate,
+		director: director,
+		duration: duration,
+		cast: cast,
+		studio: studio,
+		category: category,
+		language: language,
+		format: format,
+		certificate: certificate,
+		price: price,
+		quantity: quantity,
+		trailer: trailer,
+		artwork: artwork
+	};
+
+		$.ajax({ // AJAX Request
+		dataType: 'json',
+		type: 'POST',
+		url: './assets/createProduct.php',
+		data: newProductData,
+		success: function(ajaxResponse) {
+			console.log(ajaxResponse);
+			switch(ajaxResponse.result) {
+				case "success": // If update is successful
+					$('#existingProduct').modal('hide'); // Show the modal
+					location.reload(); // Refresh the page
+					break;
+				default: // Otherwise
+					$.each(ajaxResponse, function(key, value) { // For each key-value pair returned in the JSON response (each field not completed)
+						var errorMsg = '<label class="error-msg text-danger">'+value+'</label>'; // The label text that will be displayedd, reminding the user to enter the missing field
+						$('.form-group:has(input[name="' + key + '"]), .form-group:has(textarea[name="' + key + '"])').addClass('has-error'); // Make the field group red
+						$('div > input[name="' + key + '"], div > textarea[name="' + key + '"]').after(errorMsg); //Insert the error message directly after the input box
+					});
+			}
+		},
+	});
+	return false;
+}
+
 function clearErrors() {
 	$(".form-group.has-error").removeClass('has-error');
 	$("label.error-msg, .alert").remove();
