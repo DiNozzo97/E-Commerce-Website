@@ -43,7 +43,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
 
     <div class="container-fluid">
         <h2 class="sub-header">Products</h2>
-        <button id="newProductButton" class="btn btn-success">Create New Product</button>
+        <button id="newProductButton" class="btn btn-success" onclick="showNewProduct();">Create New Product</button>
         <!--    Table to display list of products    -->
         <table class="table table-striped">
             <!--        Column Headings        -->
@@ -97,50 +97,50 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                 </div>
                 <div class="modal-body">
                     <!--            New Product Form            -->
-                    <form class="form-horizontal" method="post">
+                    <form id="newProductForm" class="form-horizontal" method="post">
                         <!--              Display Blank Fields, ready for data              -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="barcode">Barcode</label>  
+                            <label class="col-md-4 control-label" for="newBarcode">Barcode</label>  
                             <div class="col-md-4">
-                                <input id="barcode" name="barcode" type="text" placeholder="Barcode" class="form-control input-md">
+                                <input id="newBarcode" name="newBarcode" type="text" placeholder="Barcode" class="form-control input-md">
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="title">Title</label>  
+                            <label class="col-md-4 control-label" for="newTitle">Title</label>  
                             <div class="col-md-7">
-                                <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md">
+                                <input id="newTitle" name="newTitle" type="text" placeholder="Title" class="form-control input-md">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="description">Description</label>  
+                            <label class="col-md-4 control-label" for="newDescription">Description</label>  
                             <div class="col-md-7">
-                                <textarea id="description" name="description" type="text" placeholder="Description" class="form-control input-md" rows="7" cols="50"></textarea>
+                                <textarea id="newDescription" name="newDescription" type="text" placeholder="Description" class="form-control input-md" rows="7" cols="50"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="releaseDate">Release Date</label>  
+                            <label class="col-md-4 control-label" for="newReleaseDate">Release Date</label>  
                             <div class="col-md-4">
-                                <input id="releaseDate" name="releaseDate" type="date" placeholder="dd/mm/yyyy" class="form-control input-md">
+                                <input id="newReleaseDate" name="newReleaseDate" type="date" placeholder="dd/mm/yyyy" class="form-control input-md">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="director">Director</label>  
+                            <label class="col-md-4 control-label" for="newDirector">Director</label>  
                             <div class="col-md-7">
-                                <input id="director" name="director" type="text" placeholder="eg.  Christopher Nolan,David Fincher" class="form-control input-md">
+                                <input id="newDirector" name="newDirector" type="text" placeholder="eg.  Christopher Nolan,David Fincher" class="form-control input-md">
                                 <span class="help-block">comma-seperated</span>  
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="duration">Duration</label>
+                            <label class="col-md-4 control-label" for="newDuration">Duration</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input id="duration" name="duration" class="form-control" placeholder="Duration" type="number">
+                                    <input id="newDuration" name="newDuration" class="form-control" placeholder="Duration" type="number">
                                     <span class="input-group-addon">mins</span>
                                 </div>
 
@@ -148,62 +148,62 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="cast">Cast</label>  
+                            <label class="col-md-4 control-label" for="newCast">Cast</label>  
                             <div class="col-md-7">
-                                <input id="cast" name="cast" type="text" placeholder="eg. Sophie Turner,Jack Nicholson" class="form-control input-md">
+                                <input id="newCast" name="newCast" type="text" placeholder="eg. Sophie Turner,Jack Nicholson" class="form-control input-md">
                                 <span class="help-block">comma-seperated</span>  
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="studio">Studio</label>  
+                            <label class="col-md-4 control-label" for="newStudio">Studio</label>  
                             <div class="col-md-7">
-                                <input id="studio" name="studio" type="text" placeholder="eg. Warner Bros,Pixar" class="form-control input-md">
-                                <span class="help-block">comma-seperated</span>  
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="category">Categories</label>  
-                            <div class="col-md-7">
-                                <input id="category" name="category" type="text" placeholder="eg. Animation,Children,Family" class="form-control input-md">
+                                <input id="newStudio" name="newStudio" type="text" placeholder="eg. Warner Bros,Pixar" class="form-control input-md">
                                 <span class="help-block">comma-seperated</span>  
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="language">Language</label>  
+                            <label class="col-md-4 control-label" for="newCategory">Categories</label>  
                             <div class="col-md-7">
-                                <input id="language" name="language" type="text" placeholder="eg. French,English,Spanish" class="form-control input-md">
+                                <input id="newCategory" name="newCategory" type="text" placeholder="eg. Animation,Children,Family" class="form-control input-md">
+                                <span class="help-block">comma-seperated</span>  
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="newLanguage">Language</label>  
+                            <div class="col-md-7">
+                                <input id="newLanguage" name="newLanguage" type="text" placeholder="eg. French,English,Spanish" class="form-control input-md">
                                 <span class="help-block">comma-seperated</span>  
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="format">Format</label>  
+                            <label class="col-md-4 control-label" for="newFormat">Format</label>  
                             <div class="col-md-4">
-                                <input id="format" name="format" type="text" placeholder="Format" class="form-control input-md">
+                                <input id="newFormat" name="newFormat" type="text" placeholder="Format" class="form-control input-md">
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="certificate">Certificate</label>  
+                            <label class="col-md-4 control-label" for="newCertificate">Certificate</label>  
                             <div class="col-md-2">
-                                <input id="certificate" name="certificate" type="text" placeholder="Cert" class="form-control input-md">
+                                <input id="newCertificate" name="newCertificate" type="text" placeholder="Cert" class="form-control input-md">
 
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="price">Price</label>
+                            <label class="col-md-4 control-label" for="newPrice">Price</label>
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon">£</span>
-                                    <input id="price" name="price" class="form-control" placeholder="0.00" min="0.01" step="0.01" type="number">
+                                    <input id="newPrice" name="newPrice" class="form-control" placeholder="0.00" min="0.01" step="0.01" type="number">
                                 </div>
 
                             </div>
@@ -211,9 +211,9 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="quantity">Quantity Available</label>  
+                            <label class="col-md-4 control-label" for="newQuantity">Quantity Available</label>  
                             <div class="col-md-2">
-                                <input id="quantity" name="quantity" type="number" placeholder="Qty" class="form-control input-md" min="0">
+                                <input id="newQuantity" name="newQuantity" type="number" placeholder="Qty" class="form-control input-md" min="0">
 
                             </div>
                         </div>
@@ -221,24 +221,24 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="trailer">Trailer URL</label>  
+                            <label class="col-md-4 control-label" for="newTrailer">Trailer URL</label>  
                             <div class="col-md-7">
-                                <input id="trailer" name="trailer" type="text" placeholder="http://youtube.com/examplevid" class="form-control input-md">
+                                <input id="newTrailer" name="newTrailer" type="text" placeholder="http://youtube.com/examplevid" class="form-control input-md">
 
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="artwork">Artwork URL</label>  
+                            <label class="col-md-4 control-label" for="newArtwork">Artwork URL</label>  
                             <div class="col-md-7">
-                                <input id="artwork" name="artwork" type="text" placeholder="http://example.com/image.jpg" class="form-control input-md">
+                                <input id="newArtwork" name="newArtwork" type="text" placeholder="http://example.com/image.jpg" class="form-control input-md">
 
                             </div>
                         </div>
 
 
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="submit" class="btn btn-success" onclick="return saveNewProduct();">Save</button>
                     </form>
                 </div>
             </div>
@@ -391,7 +391,7 @@ if (!isset($_SESSION['staffID'])) { // If the user isn't a signed in member of s
                             </div>
                         </div>
 
-                        <button id="saveButton"type="submit" class="btn btn-success" onclick="return saveEditProduct();">Save</button>
+                        <button id="saveButton" type="submit" class="btn btn-success" onclick="return saveEditProduct();">Save</button>
                     </form>
                 </div>
             </div>
