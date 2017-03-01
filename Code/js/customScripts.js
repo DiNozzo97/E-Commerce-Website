@@ -126,6 +126,7 @@ function addToBasket(barcode) {
 	 			
 	 		}
 	 	});
+}
 
 $( document ).ready(function() { // When the page has loaded
 
