@@ -2,14 +2,14 @@
 
 require '../vendor/autoload.php'; // Import the MongoDB library
 session_start();
-$_SESSION['userID'] = "58ab3691cd21167b5940b8e2";
-// if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a customer
-    // echo json_encode(['result' => 'show login']); // Send a message to js and exit
-	// exit();
-// }
+// $_SESSION['userID'] = "58ab3691cd211
+if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a customer
+    echo json_encode(['result' => 'show login']); // Send a message to js and exit
+	exit();
+}
 
-// $barcode = filter_var($_POST['barcode'], FILTER_SANITIZE_NUMBER_INT); // Sanitize the barcode provided
-$barcode = "87174184684469";
+$barcode = filter_var($_POST['barcode'], FILTER_SANITIZE_NUMBER_INT); // Sanitize the barcode provided
+// $barcode = "87174184684469";
 
 $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
 
@@ -53,13 +53,12 @@ $productInBasket = false;
 foreach ($customerDocument['basket']['items'] as $product) { //For each product in the basket 
 	if ($product['barcode'] == $barcode) { //Check to see if product barcode equals the requested barcode
 		$productInBasket = true; //If so, set variable to true
-		var_dump($product);
 		break; //Break out of the foreach loop
 	}
 }
 
-// if ($productInBasket) {
-	// $customerCollection->updateOne(['basket.items.barcode'=>$barcode], ['$inc'=>['
+if ($productInBasket) {
+	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID']), 'basket.items.barcode'=>$barcode], ['$inc'=>['basket.items.$.quantity' => 1]]);
 	
 
  
