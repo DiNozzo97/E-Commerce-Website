@@ -115,7 +115,17 @@ function clearErrors() {
 
 }
 
-
+function addToBasket(barcode) {
+	var data = {barcode: barcode};
+	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/addToBasket.php',
+	 		data: data, // Provide the data to send to the php script
+	 		success: function(ajaxResponse) {
+	 			
+	 		}
+	 	});
 
 $( document ).ready(function() { // When the page has loaded
 
