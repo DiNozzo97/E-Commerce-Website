@@ -2,20 +2,20 @@
 
 require '../vendor/autoload.php'; // Import the MongoDB library
 session_start();
-// $_SESSION['userID'] = "58ab3691cd211
-if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a customer
-    echo json_encode(['result' => 'show login']); // Send a message to js and exit
-	exit();
-}
+$_SESSION['userID'] = "58ab3691cd21167b5940b8e2";
+// if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a customer
+    // echo json_encode(['result' => 'show login']); // Send a message to js and exit
+	// exit();
+// }
 
-$barcode = filter_var($_POST['barcode'], FILTER_SANITIZE_NUMBER_INT); // Sanitize the barcode provided
-// $barcode = "87174184684469";
+// $barcode = filter_var($_POST['barcode'], FILTER_SANITIZE_NUMBER_INT); // Sanitize the barcode provided
+$barcode = "87174184684469";
 
 $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
 
 $productsCollection = $client->movie_box->products; // Select the database and collection   
-$document = $productsCollection->findOne(['barcode'=>$barcode]); //Retrieve the film document
-$certificate = strtoupper($document['details']['certificate']);
+$productDocument = $productsCollection->findOne(['barcode'=>$barcode]); //Retrieve the film document
+$certificate = strtoupper($productDocument['details']['certificate']);
 
 
 switch($certificate) {
@@ -58,7 +58,13 @@ foreach ($customerDocument['basket']['items'] as $product) { //For each product 
 }
 
 if ($productInBasket) {
-	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID']), 'basket.items.barcode'=>$barcode], ['$inc'=>['basket.items.$.quantity' => 1]]);
+	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID']), 'basket.items.barcode'=>$barcode], ['$inc'=>['basket.items.$.quantity' => 1]]); //Increment the quantity by 1 in the database
+} else {
+	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$push'=> ['basket.items'=>['barcode'=>$barcode,'title'=>$productDocument['details']['title'],'unit_price'=>$productDocument['price'], 'quantity'=>1, 'artwork'=>$productDocument['artwork']]]]);
+}
+
+	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$inc'=>['basket.basket_total' => $productDocument['price']]]); //Increment the quantity by 1 in the database
+
 	
 
  
