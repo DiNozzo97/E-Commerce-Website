@@ -128,6 +128,21 @@ function addToBasket(barcode) {
 	 	});
 }
 
+function createOrder() {
+	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/createOrder.php',
+	 		success: function(ajaxResponse) {
+	 			if (ajaxResponse.result == 'success') { // Order completed
+
+	 			} else { // Item requested is out of stock
+
+	 			}
+	 		}
+	 	});
+}
+
 $( document ).ready(function() { // When the page has loaded
 
 	$('#loginModal').on('hidden.bs.modal', function () { // When the login modal is closed

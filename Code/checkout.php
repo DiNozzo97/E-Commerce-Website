@@ -1,3 +1,13 @@
+<?php
+require 'vendor/autoload.php'; //import the mongodb library
+session_start();
+
+$client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
+
+$collection = $client->movie_box->customers; // Select the database and collection      
+
+$document = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['projection' => ['basket' => 1, 'name' => 1, 'shipping_address' => 1]]); // Find the customer's document
+?>
 <! DOCTYPE html>
 <html>
 <head>
@@ -25,15 +35,15 @@
                                 <div class="col-md-9">
                                     <p>
                                         <strong>Delivery Address:</strong><br>
-                                        John Smith<br>
-                                        Middlesex University<br>
-                                        The Burroughs<br>
-                                        London<br>
-                                        NW4 4BT
+                                        <?=$document['name']['first_name'] . " " . $document['name']['last_name'];?><br>
+                                        <?=$document['shipping_address']['address_line1']?><br>
+                                        <?php if ($document['shipping_address']['address_line2'] != "") { echo $document['shipping_address']['address_line2'] . "<br>";} // If a second address line was provided then print it ?> 
+                                        <?=$document['shipping_address']['city']?><br>
+                                        <?=$document['shipping_address']['postcode']?>
                                     </p>
                                 </div>
-                                <div class="col-md-3">
-                                    <h2 style="margin-top: 0px;">Recommendations</h2>
+                                <div class="col-md-3" id="recommendations">
+                                    <h2 style="margin-top: 0px;">Recommendation</h2>
                                     <img src="media/products/insideOut.jpg" width="50px">
                                     <img src="media/products/insideOut.jpg" width="50px">
                                     <img src="media/products/insideOut.jpg" width="50px">
@@ -56,23 +66,61 @@
                                 </thead>
                                 <!--       Table Data         -->
                                 <tbody>
-                                    <tr>
-                                        <td class="text-left"><img src="media/products/insideOut.jpg" width="50px"></td>
-                                        <td class="text-center">Inside Out</td>
-                                        <td class="text-center">2</td>
-                                        <td class="text-center">£14.99</td>
-                                        <td class="text-right">£29.98</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center"><strong>Order Total:</strong></td>
-                                        <td class="text-right"><strong>£29.98</strong></td>
-                                    </tr>
+                                    <?php
+                                        
+
+                                        $basketTotal = $document['basket']['basket_total'];
+
+                                        // Format the price
+                                        $basketTotal = $basketTotal/100; // Convert into pounds
+                                        $basketTotal = number_format((float)$basketTotal, 2, '.', ''); //to 2 DP 
+                                        
+                                        foreach ($document['basket']['items'] as $item) { // For each basket item
+                                            $barcode = $item['barcode'];
+                                            $artwork = $item['artwork'];
+                                            $title = $item['title'];
+                                            $qty = $item['quantity'];
+                                            $unitPrice = $item['unit_price'];
+                                            $linePrice = $unitPrice * $qty;
+
+                                            // Format the prices
+                                            $unitPrice = $unitPrice/100; // Convert into pounds
+                                            $unitPrice = number_format((float)$unitPrice, 2, '.', ''); //to 2 DP 
+
+                                            $linePrice = $linePrice/100; // Convert into pounds
+                                            $linePrice = number_format((float)$linePrice, 2, '.', ''); //to 2 DP 
+
+                                            echo 
+                                            "<tr>
+                                                <td class='text-left'><img src='$artwork' width='50px'></td>
+                                                <td class='text-center'><a href='product.php?productid=$barcode'>$title</a></td>
+                                                <td class='text-center'>$qty</td>
+                                                <td class='text-center'>£$unitPrice</td>
+                                                <td class='text-right'>£$linePrice</td>
+                                            </tr>";
+                                        }
+
+                                    if (count($document['basket']['items']) > 0) {
+                                        echo "
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class='text-center'><strong>Order Total:</strong></td>
+                                            <td class='text-right'><strong>£$basketTotal</strong></td>
+                                        </tr>"; 
+                                    } else {
+                                        echo "
+                                        <tr>
+                                            <td class='text-center' colspan='5'><strong>No products in your basket! :(</strong></td>
+                                        </tr>";
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
-                            <a href="confirmation.php"><button type="button" class="btn btn-success pull-right">Complete Order</button></a>
+                            <?php if (count($document['basket']['items']) > 0) {
+                                echo "<button type='button' class='btn btn-success pull-right' onclick='return createOrder()'>Confirm Order</button>";
+                                } ?>
                         </div>
                     </div>
 
