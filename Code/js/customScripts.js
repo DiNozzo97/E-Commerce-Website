@@ -142,11 +142,10 @@ function refreshCart() {
 	 		url: '../assets/retrieveBasket.php',
 	 		success: function(ajaxResponse) {
 				$("#basketItems").empty();
-				$.each(ajaxResponse.basketLine, function(key) {
-					
-					$('#basketItems').append("<li><span class='item'><span class='item-left'><img src='" + key.artwork + "'alt='' width='50px' /><span class='item-info'><a href='" + key.hyperlink + "'><span>" + key.title + "</span></a><span>" + key.price + "</span></span></span><span class='item-right'><button class='btn btn-xs btn-success'>+</button><input type='text' name='qty' id='qty' value='" + key.quantity + "' disabled><button class='btn btn-xs btn-danger'>-</button></span></span></li>");
+				$.each(ajaxResponse.basketLine, function(key, value) {
+					$('#basketItems').append("<li><span class='item'><span class='item-left'><img src='" + value.artwork + "'alt='' width='50px' /><span class='item-info'><a href='" + value.hyperlink + "'><span>" + value.title + "</span></a><span>" + value.price + "</span></span></span><span class='item-right'><button class='btn btn-xs btn-success'>+</button><input type='text' name='qty' id='qty' value='" + value.quantity + "' disabled><button class='btn btn-xs btn-danger'>-</button></span></span></li>");
 				});
-				$("#totalBasketPrice").val(ajaxResponse.totalPrice);
+				$("#totalBasketPrice").text(ajaxResponse.totalPrice);
 	 		}
 	 	});
 }

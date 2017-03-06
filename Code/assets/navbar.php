@@ -80,7 +80,7 @@
                                             <img src="media/products/insideOut.jpg" alt="" width="50px" />
                                             <span class="item-info">
                                                 <a href="product.php"><span>Inside Out</span></a>
-                                                <span id="totalBasketPrice">£14.99</span>
+                                                <span>£14.99</span>
                                             </span>
                                         </span>
                                         <span class="item-right">
@@ -91,7 +91,7 @@
                                     </span>
                                 </li>
 								</div>
-                                <li><p class="cartTotal"><strong>Total: £<span>29.98</span></strong></p></li>
+                                <li><p class="cartTotal"><strong>Total: £<span id='totalBasketPrice'>29.98</span></strong></p></li>
                                 <li class="divider"></li>
                                 <li><a class="text-center" href="checkout.php">Checkout</a></li>
                             </ul>
