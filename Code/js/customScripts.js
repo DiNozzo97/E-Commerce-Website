@@ -115,7 +115,39 @@ function clearErrors() {
 
 }
 
+function addToBasket(barcode) {
+	var data = {barcode: barcode};
+	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/addToBasket.php',
+	 		data: data, // Provide the data to send to the php script
+	 		success: function(ajaxResponse) {
+	 			
+	 		}
+	 	});
+}
 
+function createOrder() {
+	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/createOrder.php',
+	 		success: function(ajaxResponse) {
+	 			if (ajaxResponse.result == 'success') { // Order completed
+	 				window.location.href = './confirmation.php?id=' + ajaxResponse.orderNumber;
+	 			} else { // Item requested is out of stock
+	 				console.log(ajaxResponse);
+	 				var outOfStockMsg = "Sorry, we do not have enough of the following DVDs to fulfill your order.<br>In stock we have:<br>";
+		 			$.each(ajaxResponse, function(index, value) { // For each pair returned
+		 				outOfStockMsg = outOfStockMsg + value.qty + "x " + value.title + '<br>';
+		 			});
+		 			outOfStockMsg = outOfStockMsg + "Please adjust your order to continue";
+		 			alertActivator("checkout", "danger", outOfStockMsg, false);
+	 			}
+	 		}
+	 	});
+}
 
 $( document ).ready(function() { // When the page has loaded
 
