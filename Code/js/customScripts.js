@@ -135,6 +135,22 @@ function addToBasket(barcode) {
 	 	});
 }
 
+function refreshCart() {
+	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/retrieveBasket.php',
+	 		success: function(ajaxResponse) {
+				$("#basketItems").empty();
+				$.each(ajaxResponse.basketLine, function(key) {
+					
+					$('#basketItems').append("<li><span class='item'><span class='item-left'><img src='" + key.artwork + "'alt='' width='50px' /><span class='item-info'><a href='" + key.hyperlink + "'><span>" + key.title + "</span></a><span>" + key.price + "</span></span></span><span class='item-right'><button class='btn btn-xs btn-success'>+</button><input type='text' name='qty' id='qty' value='" + key.quantity + "' disabled><button class='btn btn-xs btn-danger'>-</button></span></span></li>");
+				});
+				$("#totalBasketPrice").val(ajaxResponse.totalPrice);
+	 		}
+	 	});
+}
+
 $( document ).ready(function() { // When the page has loaded
 
 	$('#loginModal').on('hidden.bs.modal', function () { // When the login modal is closed
