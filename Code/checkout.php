@@ -29,6 +29,7 @@ $document = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['
                     <!-- ------------------ CONTENT ------------------- -->
 
                     <div id="content" class="container">
+                    <div id="checkoutAlert"></div>
                         <div class="container">
                             <h1>Checkout</h1>
                             <div class="row">

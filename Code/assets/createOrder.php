@@ -11,16 +11,15 @@ $customersCollection = $client->movie_box->customers; // Select the database and
 
 $customerDocument = $customersCollection->findOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])]); // Find the document that contains the customers ID
 
-$outOfStock = []; // Prepare an array to hold  out of stock items
 foreach ($customerDocument['basket']['items'] as $item) { // For each basket item
 	$productDocument = $productsCollection->findOne(['barcode' => $item['barcode']]); // Find the document that contains the item
 	if ($item['quantity'] > $productDocument['quantity_available']) {
-		array_push($outOfStock, $item['title']);
+		$outOfStock[] = ['title' => $item['title'], 'qty' => $item['quantity']];
 	}
 }
 
 if (count($outOfStock) > 0) { // If there were products out of stock
-	echo json_encode(['result' => 'outOfStock', 'products' => $outOfStock]); // Encode the messages in JSON to send back to the JS script
+	echo json_encode($outOfStock); // Encode the messages in JSON to send back to the JS script
     exit; // Don't execute any more of the script
 }
 
