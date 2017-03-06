@@ -69,7 +69,9 @@ $release = $release->format('jS F Y'); //Formatted string
             <!-- ------------------ CONTENT ------------------- -->
 
             <div id="content" class="container">
+				<div id="basketFeedbackAlert"></div>
                 <div class="container">
+				
                     <div class="row" style="margin-top: 75px;">
                         <!-- Image -->
                         <div class="col-md-2">
@@ -95,7 +97,7 @@ $release = $release->format('jS F Y'); //Formatted string
 								echo "<p class='text-danger'><strong>Product currently not in stock</strong></p>";
 							} else {
 								echo "<p class='text-success'><strong>$quantity</strong> copies currently in stock</p>";
-								echo "<a class='btn btn-success' href='#'>Add to cart</a>";
+								echo "<button class='btn btn-success' onclick='return addToBasket(\"$barcode\");'>Add to cart</button>";
 							}
 							?>
                         </div>

@@ -123,7 +123,15 @@ function addToBasket(barcode) {
 	 		url: '../assets/addToBasket.php',
 	 		data: data, // Provide the data to send to the php script
 	 		success: function(ajaxResponse) {
-	 			
+				console.log(ajaxResponse.result);
+				$("#basketFeedback").empty();
+					if (ajaxResponse.result == 'success') { 
+						alertActivator("basketFeedback", 'success', "Successfuly added to basket", true);
+					} else if (ajaxResponse.result == 'show login') {
+						$('#loginModal').modal('show');
+					} else { 
+						alertActivator("basketFeedback", 'danger', "Sorry, you are not old enough to buy this product", true);
+					}
 	 		}
 	 	});
 }
