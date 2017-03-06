@@ -123,7 +123,6 @@ function addToBasket(barcode) {
 	 		url: '../assets/addToBasket.php',
 	 		data: data, // Provide the data to send to the php script
 	 		success: function(ajaxResponse) {
-				console.log(ajaxResponse.result);
 				$("#basketFeedback").empty();
 					if (ajaxResponse.result == 'success') { 
 						alertActivator("basketFeedback", 'success', "Successfuly added to basket", true);
