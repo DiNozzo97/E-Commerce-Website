@@ -48,6 +48,11 @@ if ($customerAge < $movieAge) {
 	exit();
 }
 
+$productCollection = $client->movie_box->products; // Select the database and collection   
+
+$productDocument = $productCollection->findOne(['barcode' => $barcode]); // Retrieve the products document
+
+
 $productInBasket = false;
 foreach ($customerDocument['basket']['items'] as $product) { //For each product in the basket 
 	if ($product['barcode'] == $barcode) { //Check to see if product barcode equals the requested barcode
@@ -59,7 +64,12 @@ foreach ($customerDocument['basket']['items'] as $product) { //For each product 
 
 if ($_POST['type'] == 'inc') {
 	if ($productInBasket) {
+		if ($productQuantity == $productDocument['quantity_available']) {
+			echo json_encode(['result' => 'none in stock']);
+			exit();
+		} else {
 		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID']), 'basket.items.barcode'=>$barcode], ['$inc'=>['basket.items.$.quantity' => 1]]); //Increment the quantity by 1 in the database
+		}
 	} else {
 		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$push'=> ['basket.items'=>['barcode'=>$barcode,'title'=>$productDocument['details']['title'],'unit_price'=>$productDocument['price'], 'quantity'=>1, 'artwork'=>$productDocument['artwork']]]]);
 	}
@@ -73,6 +83,10 @@ if ($_POST['type'] == 'inc') {
 	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$inc'=>['basket.basket_total' => -$productDocument['price']]]); //Decrement the quantity by 1 in the database
 }
 
+if ($customerDocument['basket']['basket_total'] < 0) { // If the total basket price is less than 0 (Just a precautionary check that nothing's messing up)
+		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$set'=>['basket.basket_total' => 0]]); // then set it to 0
+
+}
 	
 echo json_encode(['result' => 'success']); // Send a message to js and exit
 	exit();	
