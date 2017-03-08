@@ -3,21 +3,22 @@ require '../vendor/autoload.php'; // Import the MongoDB library
 
 session_start();
 
-    $ScName=strip_tags($_POST['ScName']);
     $fname=strip_tags($_POST['fname']);
     $lname=strip_tags($_POST['lname']);
+    $day=strip_tags($_POST['day']);
+    $month=strip_tags($_POST['month']);
+    $year=strip_tags($_POST['year']);
     $email=strip_tags($_POST['email']);
     $password=strip_tags($_POST['password']);
-    $password1=strip_tags($_POST['password1']);
     $password2=strip_tags($_POST['password2']);
     $addressLine1User=strip_tags($_POST['addressLine1User']);
-    $addressLine2User=strip_tags($_POST['addressLine2User']);
+    $addressLine2User=strip_tags($_POST['addressLine2EditUser']);
     $cityUser=strip_tags($_POST['cityUser']);
     $postcodeUser=strip_tags($_POST['postcodeUser']);
 
     $error = array();
-       s  
-        if(empty($email) or !filter_var($email,FILTER_SANITIZE_EMAIL))
+        { 
+        if(($email == "") or !filter_var($email,FILTER_SANITIZE_EMAIL))
         {
           $error['emailRegister'] = "Email Address is empty or invalid";
         }
@@ -28,15 +29,32 @@ session_start();
           $error['confirmPasswordRegister'] = "Please enter Confirm password";
         }
         if($password != $password2){
-           $error[] = "Password and Confirm password are not matching";
+           $error['confirmPasswordRegister'] = "Password and Confirm password are not matching";
         }
         if(empty($fname)){
-            $error['firstNameRegister'] = "Enter first name";
+            $error['firstNameRegister'] = "Enter first name"; 
         }
         if(empty($lname)){
-            $error['lastNameRegister'w] = "Enter last name";
+            $error['lastNameRegister'] = "Enter last name";
         }
+
  
+        if(empty($day)){
+            $error['dobDayRegister'] = "Enter day";
+        }
+
+ 
+ 
+        if(empty($month)){
+            $error['dobMonthRegister'] = "Enter month";
+        }
+         
+ 
+        if(empty($year)){
+            $error['dobYearRegister'] = "Enter year";
+        }
+         
+         
         if(empty($addressLine1User)){
             $error['addressLine1Register'] = "Enter first line of your address";
         }
@@ -46,7 +64,10 @@ session_start();
             $error['addressLine2Register'] = "Enter secound line of your address";
         }
          
- 
+            if(empty($cityUserr)){
+            $error['cityRegister'] = "Enter city";
+        }
+         
  
         if(empty($postcodeUser)){
             $error['postcodeRegister'] = "Enter your postcode";
@@ -68,12 +89,12 @@ session_start();
 
                  if(empty($document)){
                      //Save the New user
-                     $user=array('fname'=>$fname,'lname'=>$lname,'ScName'=>$ScName,'email'=>$email,'password'=>md5($password),'password'=>$password2);             
+                     $user=array('fname'=>$fname,'lname'=>$lname,'day'=>$day,'month'=>$month,'year'=>$year,'email'=>$email,'password'=>md5($password),'password'=>$password2);             
                      $collection->insertOne($user);
                      echo json_encode(['result' => 'success']);
                      exit();
                  }else{
-                     echo json_encode('emailRegister' => 'Email is already registered!');
+                     echo json_encode(['emailRegister' => 'Email is already registered!']);
                      exit();
                  }
 

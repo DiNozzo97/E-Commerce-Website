@@ -117,20 +117,22 @@ function clearErrors() {
 }
 
 // This function is executed when the user presses the 'submit' button when creating an account
-function validateCustomerEditData() {
+function newUserSignUp() {
 	clearErrors(); // Clear any existing error messages
 
 	var data = { // Store the email/password in a data object that can be easily sent via ajax
-		$ScName: $("ScName").val(),
-		$fname: $("fname").val(),
-		$lname: $("#lname").val(),
-		$email: $("#email").val(),
-		$password: $("password").val(),
-        $password2: $("password2").val(),
-		addressLine1User: $("addressLine1User").val(),
-		addressLine2EditUser: $("#addressLine2User").val(),
-		cityUser: $("#cityUser").val(),
-		postcodeUser: $("#postcodeUser").val()
+		fname: $("#firstNameRegister").val(),
+		lname: $("#lastNameRegister").val(),
+        day: $("#dobDayRegister").val(),
+        month: $("#dobMonthRegister").val(),
+        year: $("#dobYearRegister").val(),
+		email: $("#emailRegister").val(),
+		password: $("#passwordRegister").val(),
+        password2: $("#confirmPasswordRegister").val(),
+		addressLine1User: $("#addressLine1Register").val(),
+		addressLine2EditUser: $("#addressLine2Register").val(),
+		cityUser: $("#cityRegister").val(),
+		postcodeUser: $("#postcodeRegister").val()
 	};
 
 	$.ajax({ // AJAX Request
