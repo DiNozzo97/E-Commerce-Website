@@ -18,7 +18,7 @@ foreach ($customerDocument['basket']['items'] as $item) { // For each basket ite
 	}
 }
 
-if (count($outOfStock) > 0) { // If there were products out of stock
+if (isset($outOfStock)) { // If there were products out of stock
 	echo json_encode($outOfStock); // Encode the messages in JSON to send back to the JS script
     exit; // Don't execute any more of the script
 }
