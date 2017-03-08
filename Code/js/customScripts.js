@@ -189,6 +189,11 @@ $( document ).ready(function() { // When the page has loaded
 	 	});
 	 });
 
+	$('.dropdown-cart').on("click", function(e) { // When the user clicks within the cart dropdown menu 
+        e.stopPropagation(); // Prevent the event from being handles by anymore handlers (prevents the dropbox from closing when the user clicks the +/- buttons)
+        refreshCart(); // Then refresh the basket display with the latest data
+    });
+
 
 });
 

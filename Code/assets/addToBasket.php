@@ -52,7 +52,7 @@ $productInBasket = false;
 foreach ($customerDocument['basket']['items'] as $product) { //For each product in the basket 
 	if ($product['barcode'] == $barcode) { //Check to see if product barcode equals the requested barcode
 		$productInBasket = true; //If so, set variable to true
-		$productQuantity = $product["quantity"];
+		$productQuantity = $product['quantity'];
 		break; //Break out of the foreach loop
 	}
 }
@@ -66,7 +66,7 @@ if ($_POST['type'] == 'inc') {
 	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$inc'=>['basket.basket_total' => $productDocument['price']]]); //Increment the quantity by 1 in the database
 } else {
 	if ($productQuantity == 1) {
-		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$pull'=> ['basket.items' => $barcode]]); // Remove product from basket array
+		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$pull'=> ['basket.items' => ['barcode' => $barcode]]]); // Remove product from basket array
 	} else {
 		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID']), 'basket.items.barcode'=>$barcode], ['$inc'=>['basket.items.$.quantity' => -1]]); //Decrement the quantity by 1 in the database
 	}
