@@ -44,6 +44,7 @@ function processLogin() {
 	return false;
 }
 
+
 // This function is executed when the user presses the 'save' button when editting their details
 function validateCustomerEditData() {
 	clearErrors(); // Clear any existing error messages
@@ -113,6 +114,42 @@ function clearErrors() {
 	$(".form-group.has-error").removeClass('has-error');
 	$("label.error-msg, .alert").remove();
 
+}
+
+// This function is executed when the user presses the 'submit' button when creating an account
+function validateCustomerEditData() {
+	clearErrors(); // Clear any existing error messages
+
+	var data = { // Store the email/password in a data object that can be easily sent via ajax
+		$ScName: $("ScName").val(),
+		$fname: $("fname").val(),
+		$lname: $("#lname").val(),
+		$email: $("#email").val(),
+		$password: $("password").val(),
+        $password2: $("password2").val(),
+		addressLine1User: $("addressLine1User").val(),
+		addressLine2EditUser: $("#addressLine2User").val(),
+		cityUser: $("#cityUser").val(),
+		postcodeUser: $("#postcodeUser").val()
+	};
+
+	$.ajax({ // AJAX Request
+		dataType: 'json',
+		type: 'POST',
+		url: '../assets/register.php',
+		data: data,
+		success: function(ajaxResponse) {
+			if (ajaxResponse.result == 'success') // If all was validated successfully
+				$('#registerModal').modal('hide'); // Hide the modal
+			else 
+			$.each(ajaxResponse, function(key, value) { // For each key-value pair returned in the JSON response (each field not completed)
+				var errorMsg = '<label class="error-msg">'+value+'</label>'; // The label text that will be displayedd, reminding the user to enter the missing field
+				$('.form-group:has(input[name="' + key + '"])').addClass('has-error'); // Make the field group red
+				$('div > input[name="' + key + '"]').before(errorMsg); //Insert the error message directly after the input box
+			});
+			}
+		});
+	return false;
 }
 
 

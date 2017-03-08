@@ -213,7 +213,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                         </div>
                     </div>
 
-                    <button id="registerButton"type="submit" class="btn btn-info center-block">Register</button>
+                    <button id="registerButton"type="button" class="btn btn-info center-block" onclick="return newUserSignUp();">Register</button>
                 </form>
             </div>
             <!--           Register Modal Footer              -->

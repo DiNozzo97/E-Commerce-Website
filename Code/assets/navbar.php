@@ -59,13 +59,13 @@
                             <!--    -->
                         </div>
 
-                        <form class="navbar-form navbar-left" form id="search">
+                        <form class="navbar-form navbar-left" id="search" method="GET" action="searchResults.php">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input name="search" id="search" type="text" class="form-control" placeholder="Search">
                             </div>
-                            <a href="searchResults.php"><button type="button" id="searchbutton" class="btn btn-default" aria-label="Left Align">
+                            <button type="submit" id="searchbutton" class="btn btn-default" aria-label="Left Align">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button></a>
+                            </button>
                         </form>
 
                         <!-- ------------------ SHOPPING CART ------------------- -->
