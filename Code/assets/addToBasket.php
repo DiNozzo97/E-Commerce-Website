@@ -52,17 +52,26 @@ $productInBasket = false;
 foreach ($customerDocument['basket']['items'] as $product) { //For each product in the basket 
 	if ($product['barcode'] == $barcode) { //Check to see if product barcode equals the requested barcode
 		$productInBasket = true; //If so, set variable to true
+		$productQuantity = $product["quantity"];
 		break; //Break out of the foreach loop
 	}
 }
 
-if ($productInBasket) {
-	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID']), 'basket.items.barcode'=>$barcode], ['$inc'=>['basket.items.$.quantity' => 1]]); //Increment the quantity by 1 in the database
-} else {
-	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$push'=> ['basket.items'=>['barcode'=>$barcode,'title'=>$productDocument['details']['title'],'unit_price'=>$productDocument['price'], 'quantity'=>1, 'artwork'=>$productDocument['artwork']]]]);
-}
-
+if ($_POST['type'] == 'inc') {
+	if ($productInBasket) {
+		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID']), 'basket.items.barcode'=>$barcode], ['$inc'=>['basket.items.$.quantity' => 1]]); //Increment the quantity by 1 in the database
+	} else {
+		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$push'=> ['basket.items'=>['barcode'=>$barcode,'title'=>$productDocument['details']['title'],'unit_price'=>$productDocument['price'], 'quantity'=>1, 'artwork'=>$productDocument['artwork']]]]);
+	}
 	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$inc'=>['basket.basket_total' => $productDocument['price']]]); //Increment the quantity by 1 in the database
+} else {
+	if ($productQuantity == 1) {
+		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$pull'=> ['basket.items' => $barcode]]); // Remove product from basket array
+	} else {
+		$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID']), 'basket.items.barcode'=>$barcode], ['$inc'=>['basket.items.$.quantity' => -1]]); //Decrement the quantity by 1 in the database
+	}
+	$customerCollection->updateOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['$inc'=>['basket.basket_total' => -$productDocument['price']]]); //Decrement the quantity by 1 in the database
+}
 
 	
 echo json_encode(['result' => 'success']); // Send a message to js and exit

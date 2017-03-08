@@ -116,7 +116,8 @@ function clearErrors() {
 }
 
 function addToBasket(barcode) {
-	var data = {barcode: barcode};
+	var data = {barcode: barcode,
+				type: "inc"};
 	$.ajax({ // AJAX Request
 	 		dataType: 'json',
 	 		type: 'POST',
@@ -131,6 +132,21 @@ function addToBasket(barcode) {
 					} else { 
 						alertActivator("basketFeedback", 'danger', "Sorry, you are not old enough to buy this product", true);
 					}
+				refreshCart();
+	 		}
+	 	});
+}
+
+function decreaseBasketQuantity(barcode) {
+	var data = {barcode: barcode,
+				type: "dec"};
+	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/addToBasket.php',
+	 		data: data, // Provide the data to send to the php script
+	 		success: function(ajaxResponse) {
+				cartRefresh();
 	 		}
 	 	});
 }
@@ -143,7 +159,7 @@ function refreshCart() {
 	 		success: function(ajaxResponse) {
 				$("#basketItems").empty();
 				$.each(ajaxResponse.basketLine, function(key, value) {
-					$('#basketItems').append("<li><span class='item'><span class='item-left'><img src='" + value.artwork + "'alt='' width='50px' /><span class='item-info'><a href='" + value.hyperlink + "'><span>" + value.title + "</span></a><span>" + value.price + "</span></span></span><span class='item-right'><button class='btn btn-xs btn-success'>+</button><input type='text' name='qty' id='qty' value='" + value.quantity + "' disabled><button class='btn btn-xs btn-danger'>-</button></span></span></li>");
+					$('#basketItems').append("<li><span class='item'><span class='item-left'><img src='" + value.artwork + "'alt='' width='50px' /><span class='item-info'><a href='" + value.hyperlink + "'><span>" + value.title + "</span></a><span>" + value.price + "</span></span></span><span class='item-right'><button class='btn btn-xs btn-success' onClick='addToBasket(" + value.barcode + ");'>+</button><input type='text' name='qty' id='qty' value='" + value.quantity + "' disabled><button class='btn btn-xs btn-danger' onClick='decreaseBasketQuantity(" + value.barcode + ");'>-</button></span></span></li>");
 				});
 				$("#totalBasketPrice").text(ajaxResponse.totalPrice);
 	 		}

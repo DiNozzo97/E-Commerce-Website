@@ -20,8 +20,9 @@ foreach ($basket['basket']['items'] as $item) { // For each item
 	$price = "£" . $price;
 	$productURL = "product.php?productid=" . $item['barcode'];
 	$quantity = $item['quantity'];
+	$barcode = $item['barcode'];
 	
-	array_push($basketLines,['title'=>$title, 'artwork'=>$imgURL, 'price'=>$price, 'hyperlink'=>$productURL, 'quantity'=>$quantity]);
+	array_push($basketLines,['title'=>$title, 'barcode'=>$barcode, 'artwork'=>$imgURL, 'price'=>$price, 'hyperlink'=>$productURL, 'quantity'=>$quantity]);
 	
 }
 
