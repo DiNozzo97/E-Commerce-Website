@@ -176,7 +176,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                         </div>
                     </div>
 
-                    <div class="form-inline">
+                    <div class="form-inline form-group">
                         <label class="col-md-4 control-label" for="dobDayRegister">Date of Birth</label>
                         <div class="col-md-6 registerMarginOveride">
                             <input id="dobDayRegister" name="dobDayRegister" type="text" size="3" class="form-control" placeholder="DD" maxlength="2">

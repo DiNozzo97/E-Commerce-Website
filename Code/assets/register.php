@@ -17,7 +17,7 @@ session_start();
     $postcodeUser=strip_tags($_POST['postcodeUser']);
 
     $error = array();
-        { 
+        
         if(empty($email) or !filter_var($email,FILTER_SANITIZE_EMAIL))
         {
           $error['emailRegister'] = "Email Address is empty or invalid";
@@ -40,18 +40,18 @@ session_start();
 
  
         if(empty($day)){
-            $error['dobDayRegister'] = "Enter day";
+            $error['dobDayRegister'] = "Enter DOB";
         }
 
  
  
         if(empty($month)){
-            $error['dobMonthRegister'] = "Enter month";
+            $error['dobDayRegister'] = "Enter DOB";
         }
          
  
         if(empty($year)){
-            $error['dobYearRegister'] = "Enter year";
+            $error['dobDayRegister'] = "Enter DOB";
         }
          
          
@@ -64,7 +64,7 @@ session_start();
             $error['addressLine2Register'] = "Enter secound line of your address";
         }
          
-            if(empty($cityUserr)){
+            if(empty($cityUser)){
             $error['cityRegister'] = "Enter city";
         }
          
@@ -72,7 +72,8 @@ session_start();
         if(empty($postcodeUser)){
             $error['postcodeRegister'] = "Enter your postcode";
         }
-        if(count($error == 0)){
+
+        if(count($error) == 0){
             //database configuration
 
             $connection = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
@@ -106,4 +107,3 @@ session_start();
             echo json_encode($error);
             exit();
             }
-        }
