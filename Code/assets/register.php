@@ -18,7 +18,7 @@ session_start();
 
     $error = array();
         { 
-        if(($email == "") or !filter_var($email,FILTER_SANITIZE_EMAIL))
+        if(empty($email) or !filter_var($email,FILTER_SANITIZE_EMAIL))
         {
           $error['emailRegister'] = "Email Address is empty or invalid";
         }

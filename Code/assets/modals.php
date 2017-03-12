@@ -170,7 +170,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="passwordRegister">Confirm Password</label>  
+                        <label class="col-md-4 control-label" for="confirmPasswordRegister">Confirm Password</label>  
                         <div class="col-md-6">
                             <input id="confirmPasswordRegister" name="confirmPasswordRegister" type="password" placeholder="confirm password" class="form-control input-md">
                         </div>

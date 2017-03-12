@@ -59,7 +59,7 @@
                             <!--    -->
                         </div>
 
-                        <form class="navbar-form navbar-left" id="search" method="GET" action="searchResults.php">
+                        <form class="navbar-form navbar-left" id="search" name ="name" method="GET" action="searchResults.php">
                             <div class="form-group">
                                 <input name="search" id="search" type="text" class="form-control" placeholder="Search">
                             </div>

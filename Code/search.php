@@ -1,15 +1,35 @@
 <?php
+require '../vendor/autoload.php'; // Import the MongoDB library
 
-$collection = (new MongoDB\Client)->demo->search;
+session_start(); // Start the PHP Session
 
-$document = $collection->findOne(['_id' => '94301']);
+$client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB serve
 
-var_dump($document);
+//Select a database
+$db = $mongoClient->movie_box;
 
-$collection = (new MongoDB\Client)->demo->search;
+//Extract the data that was sent to the server
+$search_string = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_STRING);
 
-$cursor = $collection->find(['' => '', 'state' => '']);
+//Create a PHP array with our search criteria
+$findCriteria = [
+    '$text' => [ '$search' => $search_string ] 
+ ];
 
-foreach ($cursor as $document) {
-    echo $document['_id'], "\n";
+//Find all of the customers that match  this criteria
+$cursor = $db->products->find($findCriteria);
+
+//Output the results
+echo "<h1>Results</h1>";
+foreach ($cursor as $cust){
+   echo "<p>";
+   echo "Customer name: " . $cust['title'];
+   echo " Email: ". $cust['email'];
+   echo " ID: " . $cust['_id'];
+   echo "</p>";
 }
+
+//Close the connection
+$mongoClient->close();
+
+
