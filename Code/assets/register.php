@@ -27,17 +27,17 @@ session_start();
         }
         if(empty($password2)){
           $error['confirmPasswordRegister'] = "Please enter Confirm password";
-        }
+             }
         if($password != $password2){
            $error['confirmPasswordRegister'] = "Password and Confirm password are not matching";
         } else {
 		$passwordHash = password_hash($password, PASSWORD_DEFAULT); 
 	    }
 
-        if(empty("/^[-'a-zA-Z]+$/", $fname)){
+        if(!preg_match("/^[-'a-zA-Z]+$/", $fname)){
             $error['firstNameRegister'] = "Enter first name"; 
         }
-        if(empty("/^[-'a-zA-Z]+$/", $lname)){
+        if(empty($lname)){
             $error['lastNameRegister'] = "Enter last name";
         }
 
@@ -69,17 +69,17 @@ session_start();
          
             if(empty($cityUser)){
             $error['cityRegister'] = "Enter city";
-        }
-         
- 
-        if(empty($postcodeUser)){
-            $error['postcodeRegister'] = "Enter your postcode";
+            }
+                
+        $postcodeUserLookup = @file_get_contents("http://api.postcodes.io/postcodes/$postcodeUser/validate");
+        $postcodeUserLookup = json_decode($postcodeUserLookup);
+        if (!isset($postcodeUserLookup->result) or $postcodeUserLookup->result != true ) {
+	    $error['postcodeRegister'] = "Enter a valid postcode";
+
         }
 
-    $postcodeLookup = file_get_contents("http://api.postcodes.io/postcodes/$postcode/validate");
-    $postcodeLookup = json_decode($postcodeLookup);
-       if (!$postcodeLookup->result)
-      $errors['postcodeRegister'] = "Enter a valid UK postcode";
+
+
           if(count($error) == 0){
             //database configuration
 
@@ -89,20 +89,24 @@ session_start();
                  $database=$connection->movie_box;
 
                  //connect to specific collection
-                 $collection=$database->user;
+                 $collection=$database->customers;
 
                  $query=array('email'=>$email);
                  //checking for existing user
                  $document=$collection->findOne($query);
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+              $dob = new DateTime("$year-$month-$day T00:00:00.000Z");
+
 
                  if(empty($document)){
                      //Save the New user
-                     $user=array('fname'=>$fname,'lname'=>$lname,'day'=>$day,'month'=>$month,'year'=>$year,'email'=>$email,'password'=>md5($password),'addressLine1User'=>$addressLine1User,'addressLine2User'=>$addressLine2User);             
+                     $user=array('email_address'=>$email, 'password_hash'=>$passwordHash, 'dob' => new MongoDB\BSON\UTCDateTime($dob->getTimestamp() * 1000), 'name' => array('first_name'=>$fname, 'last_name'=>$lname), 'shipping_address' => array('address_line1' => $addressLine1User, 'address_line2' => $addressLine2User, 'city' => $cityUser, 'postcode' => $postcodeUser), 'recent_searches'=> array(), 'basket' => array('basket_total' => 0, 'items' => array()));
                      $collection->insertOne($user);
                      echo json_encode(['result' => 'success']);
                      exit();
                  }else{
                      echo json_encode(['emailRegister' => 'Email is already registered!']);
+                      
                      exit();
                  }
 

@@ -61,7 +61,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="addressLine2EditUser">Address Line 2</label>  
                         <div class="col-md-6">
-                            <input id="addressLine2EditUser" name="addressLine2EditUser" type="text" placeholder="email address" class="form-control input-md">
+                            <input id="addressLine2EditUser" name="addressLine2EditUser" type="text" placeholder="address line 2" class="form-control input-md">
                         </div>
                     </div>
 
@@ -195,7 +195,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="addressLine2Register">Address Line 2</label>  
                         <div class="col-md-6">
-                            <input id="addressLine2Register" name="addressLine2Register" type="text" placeholder="email address" class="form-control input-md">
+                            <input id="addressLine2Register" name="addressLine2Register" type="text" placeholder="address line 2" class="form-control input-md">
                         </div>
                     </div>
 

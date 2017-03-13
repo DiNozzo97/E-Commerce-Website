@@ -34,58 +34,72 @@
                           </select>
                       </div>
                   </div>
+                            <div id="products" class="row">
+            <?php
+            require './vendor/autoload.php'; // Import the MongoDB library
 
-                  <!-- Product Grid -->
-                  <div id="products" class="row">
-                      <!-- Product (Inside Out) -->
-                      <div class="item col-md-4">
-                        <div class="thumbnail">
-                            <img class="group" src="media/products/insideOut.jpg" width="150px" />
-                            <div class="caption">
-                                <h4 class="group inner list-group-item-heading">Inside Out</h4>
-                                <p class="group inner list-group-item-text">Award-winning animated comedy drama from Disney/Pixar featuring the voice talents of Amy Poehler, Phyllis Smith, Bill Hader, Lewis Black and Mindy Kaling...</p>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p class="lead">£14.99</p>
+            $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB serve
+
+                //Select a database
+                $db = $client->movie_box;
+
+                //Extract the data that was sent to the server
+                $search_string = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING);
+
+                //Create a PHP array with our search criteria
+                $findCriteria = [
+                    '$text' => [ '$search' => $search_string ] 
+                 ];
+
+                //Find all of the customers that match  this criteria
+                $cursor = $db->products->find($findCriteria);
+                                $results = false;
+
+                //Output the results
+                foreach ($cursor as $movie){
+                    $results = true;
+                    $artwork = $movie['artwork'];
+                    $title = $movie['details']['title'];
+                    $description = $movie['details']['description'];
+                    $price = $movie['price'];
+                    $price = $price/100;
+                    $price = number_format((float)$price, 2, '.', '');
+                    $price = '£' . $price;
+                    $barcode = $movie['barcode'];
+
+                    echo "
+                     <div class='item col-md-4'>
+                        <div class='thumbnail'>
+                            <img class='group' src='$artwork' width='150px' />
+                            <div class='caption'>
+                                <h4 class='group inner list-group-item-heading'>$title</h4>
+                                <p class='group inner list-group-item-text'>$description</p>
+                                <div class='row'>
+                                    <div class='col-md-4'>
+                                        <p class='lead'>$price</p>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <a class="btn btn-success" href="#">Add to cart</a>
+                                    <div class='col-md-4'>
+                                        <button class='btn btn-success' onclick='return addToBasket(\"$barcode\");'>Add to cart</button>
                                     </div>
-                                    <div class="col-md-4">
-                                        <a class="btn btn-info" href="http://localhost/product.php?productid=8717418468446">More Info</a>
+                                    <div class='col-md-4'>
+                                        <a class='btn btn-info' href='http://localhost/product.php?productid=$barcode'>More Info</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    ";
+                }
+                                if (!$results) {
+                                    echo "<p class='has-error'><strong>No Results Found</strong></p>";
+                                }
+                            ?>
+
                 </div>
             </div>
         </div>
-        <div id="products" class="row">
-                      
-                      <div class="item col-md-4">
-                        <div class="thumbnail">
-                            <img class="group" src="media/products/logan.jpg" width="150px" />
-                            <div class="caption">
-                                <h4 class="group inner list-group-item-heading">Logan</h4>
-                                <p class="group inner list-group-item-text">Set in the near future, the movie centers on weary Logan as he cares for ailing Professor X in a hideout on the Mexican border.People used to call him the Wolverine. Now he’s just ‘Logan’. Years have passed, the world has changed, and the mutants are all but gone. Logan’s grown old, battle-scarred and weary from years of fighting. Charles Xavier is one of the only other mutants left, and he’s far from the man he once was. And when a mysterious girl arrives in Logan’s life, in desperate need of help, it’s time for the eternal soldier to go on one last mission. Hugh Jackman returns to his defining role for the final time in ‘Logan’, bringing the epic story of the Wolverine to a close.</p>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p class="lead">£30</p>
-                                    </div>
 
-                                    <div class="col-md-4">
-                                        <a class="btn btn-success" href="#">Add to cart</a>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a class="btn btn-info" href="http://localhost/product.php?productid=987654321">More Info</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <footer></footer>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recommender Demo</title>
+        <script src="recommender.js"></script>
+    </head>
+    <body>
+        <h2>Search for Products</h2>
+        <div>
+            <input type="text" id="SearchInput">
+            <button onclick="search()">Search</button>
+        </div>
+        
+        <h2>Recommendations</h2>
+        <div id="RecomendationDiv"></div>
+        <script>
+            //Create recommender object - it loads its state from local storage
+            var recommender = new Recommender();
+            
+            //Display recommendation
+            window.onload = showRecommendation;
+            
+            //Searches for products in database
+            function search(){
+                //Extract the search text
+                var searchText = document.getElementById("SearchInput").value;
+                
+                //Add the search keyword to the recommender
+                recommender.addKeyword(searchText);
+                showRecommendation();
+                
+                //#FIXME# PERFORM SEARCH FOR PRODUCTS
+            }
+            
+            //Display the recommendation in the document
+            function showRecommendation(){
+                document.getElementById("RecomendationDiv").innerHTML = recommender.getTopKeyword();
+            }
+        </script>
+    </body>
+</html>
