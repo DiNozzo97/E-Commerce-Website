@@ -116,14 +116,50 @@ function clearErrors() {
 }
 
 function addToBasket(barcode) {
-	var data = {barcode: barcode};
+	var data = {barcode: barcode,
+				type: "inc"};
 	$.ajax({ // AJAX Request
 	 		dataType: 'json',
 	 		type: 'POST',
 	 		url: '../assets/addToBasket.php',
 	 		data: data, // Provide the data to send to the php script
 	 		success: function(ajaxResponse) {
-	 			
+				$("#basketFeedback").empty();
+					if (ajaxResponse.result == 'success') { 
+						alertActivator("basketFeedback", 'success', "Successfuly added to basket", true);
+					} else if (ajaxResponse.result == 'show login') {
+						$('#loginModal').modal('show');
+					} else if (ajaxResponse.result == 'none in stock') {} else { 
+						alertActivator("basketFeedback", 'danger', "Sorry, you are not old enough to buy this product", true);
+					}
+	 		}
+	 	});
+}
+
+function decreaseBasketQuantity(barcode) {
+	var data = {barcode: barcode,
+				type: "dec"};
+	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/addToBasket.php',
+	 		data: data, // Provide the data to send to the php script
+	 		success: function(ajaxResponse) {
+	 		}
+	 	});
+}
+
+function refreshCart() {
+	$.ajax({ // AJAX Request
+	 		dataType: 'json',
+	 		type: 'POST',
+	 		url: '../assets/retrieveBasket.php',
+	 		success: function(ajaxResponse) {
+				$("#basketItems").empty();
+				$.each(ajaxResponse.basketLine, function(key, value) {
+					$('#basketItems').append("<li><span class='item'><span class='item-left'><img src='" + value.artwork + "'alt='' width='50px' /><span class='item-info'><a href='" + value.hyperlink + "'><span>" + value.title + "</span></a><span>" + value.price + "</span></span></span><span class='item-right'><button class='btn btn-xs btn-success' onClick='addToBasket(" + value.barcode + ");'>+</button><input type='text' name='qty' id='qty' value='" + value.quantity + "' disabled><button class='btn btn-xs btn-danger' onClick='decreaseBasketQuantity(" + value.barcode + ");'>-</button></span></span></li>");
+				});
+				$("#totalBasketPrice").text(ajaxResponse.totalPrice);
 	 		}
 	 	});
 }
@@ -171,6 +207,11 @@ $( document ).ready(function() { // When the page has loaded
 	 		}
 	 	});
 	 });
+
+	$('.dropdown-cart').on("click", function(e) { // When the user clicks within the cart dropdown menu 
+        e.stopPropagation(); // Prevent the event from being handles by anymore handlers (prevents the dropbox from closing when the user clicks the +/- buttons)
+        refreshCart(); // Then refresh the basket display with the latest data
+    });
 
 
 });
