@@ -71,7 +71,7 @@
                         <!-- ------------------ SHOPPING CART ------------------- -->
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                              <a href="#" onClick="refreshCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> 1 Items<span class="caret"></span></a>
+                              <a href="#" onClick="refreshCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span>Basket<span class="caret"></span></a>
                               <ul class="dropdown-menu dropdown-cart" role="menu">
 							  <div id='basketItems'>
                          
