@@ -30,11 +30,14 @@ session_start();
         }
         if($password != $password2){
            $error['confirmPasswordRegister'] = "Password and Confirm password are not matching";
-        }
-        if(empty($fname)){
+        } else {
+		$passwordHash = password_hash($password, PASSWORD_DEFAULT); 
+	    }
+
+        if(empty("/^[-'a-zA-Z]+$/", $fname)){
             $error['firstNameRegister'] = "Enter first name"; 
         }
-        if(empty($lname)){
+        if(empty("/^[-'a-zA-Z]+$/", $lname)){
             $error['lastNameRegister'] = "Enter last name";
         }
 
@@ -73,7 +76,11 @@ session_start();
             $error['postcodeRegister'] = "Enter your postcode";
         }
 
-        if(count($error) == 0){
+    $postcodeLookup = file_get_contents("http://api.postcodes.io/postcodes/$postcode/validate");
+    $postcodeLookup = json_decode($postcodeLookup);
+       if (!$postcodeLookup->result)
+      $errors['postcodeRegister'] = "Enter a valid UK postcode";
+          if(count($error) == 0){
             //database configuration
 
             $connection = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
@@ -90,7 +97,7 @@ session_start();
 
                  if(empty($document)){
                      //Save the New user
-                     $user=array('fname'=>$fname,'lname'=>$lname,'day'=>$day,'month'=>$month,'year'=>$year,'email'=>$email,'password'=>md5($password),'password'=>$password2);             
+                     $user=array('fname'=>$fname,'lname'=>$lname,'day'=>$day,'month'=>$month,'year'=>$year,'email'=>$email,'password'=>md5($password),'addressLine1User'=>$addressLine1User,'addressLine2User'=>$addressLine2User);             
                      $collection->insertOne($user);
                      echo json_encode(['result' => 'success']);
                      exit();
