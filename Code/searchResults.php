@@ -83,7 +83,7 @@
                                         <button class='btn btn-success' onclick='return addToBasket(\"$barcode\");'>Add to cart</button>
                                     </div>
                                     <div class='col-md-4'>
-                                        <a class='btn btn-info' href='http://localhost/product.php?productid=$barcode'>More Info</a>
+                                        <a class='btn btn-info' href='product.php?productid=$barcode'>More Info</a>
                                     </div>
                                 </div>
                             </div>
