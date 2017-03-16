@@ -48,9 +48,18 @@ if (!preg_match("/^[-'a-zA-Z]+$/", $firstName))
 if (!preg_match("/^[-'a-zA-Z]+$/", $lastName))
 	$errors['lastNameEditUser'] = "Enter a valid last name";
 
+
+// Check if email address is already associated with an account
+$existingDocument = $collection->findOne(['email_address' => $email]); // Update the db document with all of the new field values
+
+if (!empty($existingDocument) and $existingDocument['_id'] != $_SESSION['userID'])  { // If the email address given belongs to a customer that isn't the currently signed in user
+	$errors['emailEditUser'] = "This email address is already associated with an account.";
+}
+
 // Validate email address using built in filter
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 	$errors['emailEditUser'] = "Enter a valid email address";
+
 // Make sure the address line 1 isn't blank
 if ($addressLine1 == "")
 	$errors['addressLine1EditUser'] = "Enter a valid address line 1";
