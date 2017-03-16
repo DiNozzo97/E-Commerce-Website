@@ -21,31 +21,7 @@
             <button type="login" id="login1" class="btn btn-default" data-toggle="modal" data-target="#loginModal">
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>Login</button>
             <?php } ?>
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>Categories<span class="caret"></span></button>
-
-                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">See All</a></li>
-                        <li><a href="#">Best Selling</a></li>
-                        <li><a href="#">Latest Releases</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#">Genres</a>
-                            <ul class="dropdown-menu">
-                                <li><a tabindex="-1" href="#">Action</a></li>
-                                <li><a href="#">Adventure</a></li>
-                                <li><a href="#">Animation</a></li>
-                                <li><a href="#">Drama</a></li>
-                                <li><a href="#">Family</a></li>
-                                <li><a href="#">Historical</a></li>
-                                <li><a href="#">Horror</a></li>
-                                <li><a href="#">Romance</a></li>
-                                <li><a href="#">Science Fiction</a></li>
-                                <li><a href="#">Thriller</a></li>
-                                <li><a href="#">Western</a></li>
-                            </ul>	
-                        </div> 
+            
                     </header>
 
 
