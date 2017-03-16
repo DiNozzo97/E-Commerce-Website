@@ -68,9 +68,9 @@ if ($city == "")
 	$errors['cityEditUser'] = "Enter a valid city";
 
 // Validate postcode using external API
-$postcodeLookup = file_get_contents("http://api.postcodes.io/postcodes/$postcode/validate");
+$postcodeLookup = @file_get_contents("http://api.postcodes.io/postcodes/$postcode/validate");
 $postcodeLookup = json_decode($postcodeLookup);
-if (!$postcodeLookup->result)
+if (!isset($postcodeUserLookup->result) or $postcodeUserLookup->result != true )
 	$errors['postcodeEditUser'] = "Enter a valid UK postcode";
 
 // See if password was changed and verify validity
