@@ -37,23 +37,22 @@ session_start();
         if(!preg_match("/^[-'a-zA-Z]+$/", $fname)){
             $error['firstNameRegister'] = "Enter first name"; 
         }
-        if(empty($lname)){
+        if(!preg_match("/^[-'a-zA-Z]+$/", $lname)){
             $error['lastNameRegister'] = "Enter last name";
         }
 
  
-        if(empty($day)){
+        if(!preg_match("[0-9]", $day)){
             $error['dobDayRegister'] = "Enter DOB";
         }
-
+        
  
- 
-        if(empty($month)){
+        if(!preg_match("[0-9]", $month)){
             $error['dobDayRegister'] = "Enter DOB";
         }
          
  
-        if(empty($year)){
+        if(!preg_match("[0-9]", $year)){
             $error['dobDayRegister'] = "Enter DOB";
         }
          
