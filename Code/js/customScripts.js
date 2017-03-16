@@ -44,6 +44,7 @@ function processLogin() {
 	return false;
 }
 
+
 // This function is executed when the user presses the 'save' button when editting their details
 function validateCustomerEditData() {
 	clearErrors(); // Clear any existing error messages
@@ -115,6 +116,45 @@ function clearErrors() {
 
 }
 
+
+// This function is executed when the user presses the 'submit' button when creating an account
+function newUserSignUp() {
+	clearErrors(); // Clear any existing error messages
+
+	var data = { // Store the email/password in a data object that can be easily sent via ajax
+		fname: $("#firstNameRegister").val(),
+		lname: $("#lastNameRegister").val(),
+        day: $("#dobDayRegister").val(),
+        month: $("#dobMonthRegister").val(),
+        year: $("#dobYearRegister").val(),
+		email: $("#emailRegister").val(),
+		password: $("#passwordRegister").val(),
+        password2: $("#confirmPasswordRegister").val(),
+		addressLine1User: $("#addressLine1Register").val(),
+		addressLine2EditUser: $("#addressLine2Register").val(),
+		cityUser: $("#cityRegister").val(),
+		postcodeUser: $("#postcodeRegister").val()
+	};
+
+	$.ajax({ // AJAX Request
+		dataType: 'json',
+		type: 'POST',
+		url: '../assets/register.php',
+		data: data,
+		success: function(ajaxResponse) {
+			if (ajaxResponse.result == 'success') // If all was validated successfully
+				$('#registerModal').modal('hide'); // Hide the modal
+			else 
+			$.each(ajaxResponse, function(key, value) { // For each key-value pair returned in the JSON response (each field not completed)
+				var errorMsg = '<label class="error-msg">'+value+'</label>'; // The label text that will be displayedd, reminding the user to enter the missing field
+				$('.form-group:has(input[name="' + key + '"])').addClass('has-error'); // Make the field group red
+				$('div > input[name="' + key + '"]').before(errorMsg); //Insert the error message directly after the input box
+			});
+			}
+		});
+	return false;
+}
+
 function addToBasket(barcode) {
 	var data = {barcode: barcode,
 				type: "inc"};
@@ -135,6 +175,7 @@ function addToBasket(barcode) {
 	 		}
 	 	});
 }
+
 
 function decreaseBasketQuantity(barcode) {
 	var data = {barcode: barcode,

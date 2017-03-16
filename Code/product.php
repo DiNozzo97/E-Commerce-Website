@@ -142,6 +142,9 @@ $release = $release->format('jS F Y'); //Formatted string
 
 
 </div>
+
+
+</div>
 <footer></footer>
 </div>
 

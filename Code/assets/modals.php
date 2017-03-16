@@ -61,7 +61,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="addressLine2EditUser">Address Line 2</label>  
                         <div class="col-md-6">
-                            <input id="addressLine2EditUser" name="addressLine2EditUser" type="text" placeholder="email address" class="form-control input-md">
+                            <input id="addressLine2EditUser" name="addressLine2EditUser" type="text" placeholder="address line 2" class="form-control input-md">
                         </div>
                     </div>
 
@@ -170,13 +170,13 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="passwordRegister">Confirm Password</label>  
+                        <label class="col-md-4 control-label" for="confirmPasswordRegister">Confirm Password</label>  
                         <div class="col-md-6">
                             <input id="confirmPasswordRegister" name="confirmPasswordRegister" type="password" placeholder="confirm password" class="form-control input-md">
                         </div>
                     </div>
 
-                    <div class="form-inline">
+                    <div class="form-inline form-group">
                         <label class="col-md-4 control-label" for="dobDayRegister">Date of Birth</label>
                         <div class="col-md-6 registerMarginOveride">
                             <input id="dobDayRegister" name="dobDayRegister" type="text" size="3" class="form-control" placeholder="DD" maxlength="2">
@@ -195,7 +195,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="addressLine2Register">Address Line 2</label>  
                         <div class="col-md-6">
-                            <input id="addressLine2Register" name="addressLine2Register" type="text" placeholder="email address" class="form-control input-md">
+                            <input id="addressLine2Register" name="addressLine2Register" type="text" placeholder="address line 2" class="form-control input-md">
                         </div>
                     </div>
 
@@ -213,7 +213,7 @@ if (isset($_SESSION['userID'])) { // If the user is signed in then add the follo
                         </div>
                     </div>
 
-                    <button id="registerButton"type="submit" class="btn btn-info center-block">Register</button>
+                    <button id="registerButton"type="button" class="btn btn-info center-block" onclick="return newUserSignUp();">Register</button>
                 </form>
             </div>
             <!--           Register Modal Footer              -->
