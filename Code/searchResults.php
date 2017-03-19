@@ -25,18 +25,43 @@
                     <div class="well well-sm titleBar">
                         <h2>Search Results</h2>
                         <div class="text-right">
+                        <? if (isset($_GET['sort'])) { // If the sort parameter has been provided
+                                $sortBy = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING); // Sanitize and store the provided value
+                            } else {
+                                $sortBy = ""; // initialise the variable as an empty string
+                            } ?>
                             <strong>Sort By:</strong>
-                            <select>
-                              <option value="relevance">Relevance</option>
-                              <option value="priceLToH">Price: Low to High</option>
-                              <option value="priceHToL">Price: High to Low</option>
-                              <option value="category">Category</option>
+                            <select id="sortBy" onchange="changeResultSort();">
+                              <option value="relevance" <?php if ($sortBy == "relevance") echo "selected"; ?>>Relevance</option>
+                              <option value="priceLToH" <?php if ($sortBy == "priceLToH") echo "selected"; ?>>Price: Low to High</option>
+                              <option value="priceHToL" <?php if ($sortBy == "priceHToL") echo "selected"; ?>>Price: High to Low</option>
                           </select>
                       </div>
                   </div>
                             <div id="products" class="row">
             <?php
             require './vendor/autoload.php'; // Import the MongoDB library
+
+            if (isset($_GET['sort'])) { // If the sort parameter has been provided
+                $sortBy = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING); // Sanitize and store the provided value
+            } else {
+                $sortBy = "";
+            }
+
+            switch ($sortBy) { // Switch case for different sorting parameters
+                case 'priceLToH':
+                    $sortParam = ['sort'=>['price'=>1]];
+                    break;
+
+                case 'priceHToL':
+                    $sortParam = ['sort'=>['price'=>-1]];
+                    break;
+
+                default: // Results are sorted by relevence by default so anything other than price can be sorted by relevance
+                    $sortParam = [];
+                    break;
+            }
+
 
             $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB serve
 
@@ -52,7 +77,7 @@
                  ];
 
                 //Find all of the customers that match  this criteria
-                $cursor = $db->products->find($findCriteria);
+                $cursor = $db->products->find($findCriteria, $sortParam);
                                 $results = false;
 
                 //Output the results
@@ -106,10 +131,6 @@
     </div>
 
     <?php require 'assets/modals.php'; ?>
-
-
-
-
 
 
 </body>
