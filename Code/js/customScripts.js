@@ -226,6 +226,14 @@ function createOrder() {
 	 	});
 }
 
+function changeResultSort() {
+	var url = window.location.href; // Get the current URL from the browser
+	url = url.split("&")[0]; // Remove the sort parameter if it has been set
+	var sortBy = $('#sortBy').val(); // Get the value of the dropdown menu
+	url = url + "&sort=" + sortBy; // add the sort parameter to the url string
+	window.location.href = url; // Reload the page
+}
+
 $( document ).ready(function() { // When the page has loaded
 
 	$('#loginModal').on('hidden.bs.modal', function () { // When the login modal is closed
