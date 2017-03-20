@@ -25,7 +25,7 @@
                     <div class="well well-sm titleBar">
                         <h2>Search Results</h2>
                         <div class="text-right">
-                        <? if (isset($_GET['sort'])) { // If the sort parameter has been provided
+                        <?php if (isset($_GET['sort'])) { // If the sort parameter has been provided
                                 $sortBy = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING); // Sanitize and store the provided value
                             } else {
                                 $sortBy = ""; // initialise the variable as an empty string
