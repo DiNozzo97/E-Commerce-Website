@@ -33,6 +33,10 @@
                             <strong>Sort By:</strong>
                             <select id="sortBy" onchange="changeResultSort();">
                               <option value="relevance" <?php if ($sortBy == "relevance") echo "selected"; ?>>Relevance</option>
+                              <option value="releaseEtoL" <?php if ($sortBy == "releaseEtoL") echo "selected"; ?>>Release Date: Earliest to Latest</option>
+                              <option value="releaseLtoE" <?php if ($sortBy == "releaseLtoE") echo "selected"; ?>>Release Date: Latest to Earliest</option>
+                              <option value="durationLtoH" <?php if ($sortBy == "durationLtoH") echo "selected"; ?>>Duration: Low to High</option>
+                              <option value="durationHtoL" <?php if ($sortBy == "durationHtoL") echo "selected"; ?>>Duration: High to Low</option>
                               <option value="priceLToH" <?php if ($sortBy == "priceLToH") echo "selected"; ?>>Price: Low to High</option>
                               <option value="priceHToL" <?php if ($sortBy == "priceHToL") echo "selected"; ?>>Price: High to Low</option>
                           </select>
@@ -55,6 +59,30 @@
 
                 case 'priceHToL':
                     $sortParam = ['sort'=>['price'=>-1]];
+                    break;
+
+                case 'releaseEtoL':
+                    $sortParam = ['sort'=>['details.release_date'=>1]];
+                    break;
+
+                case 'releaseLtoE':
+                    $sortParam = ['sort'=>['details.release_date'=>-1]];
+                    break;
+
+                case 'durationLtoH':
+                    $sortParam = ['sort'=>['details.duration'=>1]];
+                    break;
+
+                case 'durationHtoL':
+                    $sortParam = ['sort'=>['details.duration'=>-1]];
+                    break;
+
+                case 'releaseLtoE':
+                    $sortParam = ['sort'=>['details.release_date'=>1]];
+                    break;
+
+                case 'releaseEtoL':
+                    $sortParam = ['sort'=>['details.release_date'=>-1]];
                     break;
 
                 default: // Results are sorted by relevence by default so anything other than price can be sorted by relevance
