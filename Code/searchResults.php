@@ -46,12 +46,6 @@
             <?php
             require './vendor/autoload.php'; // Import the MongoDB library
 
-            if (isset($_GET['sort'])) { // If the sort parameter has been provided
-                $sortBy = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING); // Sanitize and store the provided value
-            } else {
-                $sortBy = "";
-            }
-
             switch ($sortBy) { // Switch case for different sorting parameters
                 case 'priceLToH':
                     $sortParam = ['sort'=>['price'=>1]];
@@ -106,7 +100,7 @@
 
                 //Find all of the customers that match  this criteria
                 $cursor = $db->products->find($findCriteria, $sortParam);
-                                $results = false;
+                $results = false;
 
                 //Output the results
                 foreach ($cursor as $movie){
