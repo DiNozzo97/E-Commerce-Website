@@ -98,6 +98,12 @@
                     '$text' => [ '$search' => $search_string ] 
                  ];
 
+                 // if no search then display all products
+
+                 if ($search_string == "") {
+                     $findCriteria = [];
+                 }
+
                 //Find all of the customers that match  this criteria
                 $cursor = $db->products->find($findCriteria, $sortParam);
                 $results = false;
