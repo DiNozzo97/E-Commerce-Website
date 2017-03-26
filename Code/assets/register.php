@@ -42,17 +42,17 @@ session_start();
         }
 
  
-        if(!preg_match("[0-9]", $day)){
+        if(!preg_match("/^([0-9]){2}+$/", $day)){
             $error['dobDayRegister'] = "Enter DOB";
         }
         
  
-        if(!preg_match("[0-9]", $month)){
+        if(!preg_match("/^([0-9]){2}+$/", $month)){
             $error['dobDayRegister'] = "Enter DOB";
         }
          
  
-        if(!preg_match("[0-9]", $year)){
+        if(!preg_match("/^([0-9]){4}+$/", $year)){
             $error['dobDayRegister'] = "Enter DOB";
         }
          
