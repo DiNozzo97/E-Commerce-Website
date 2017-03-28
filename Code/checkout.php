@@ -6,7 +6,7 @@ $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the Mon
 
 $collection = $client->movie_box->customers; // Select the database and collection      
 
-$document = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['projection' => ['basket' => 1, 'name' => 1, 'shipping_address' => 1]]); // Find the customer's document
+$document = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['userID'])], ['projection' => ['basket' => 1, 'name' => 1, 'shipping_address' => 1, 'recent_searches' => 1]]); // Find the customer's document
 ?>
 <! DOCTYPE html>
 <html>
@@ -43,13 +43,40 @@ $document = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['
                                         <?=$document['shipping_address']['postcode']?>
                                     </p>
                                 </div>
-                                <div class="col-md-3" id="recommendations">
-                                    <h2 style="margin-top: 0px;">Recommendation</h2>
-                                    <img src="media/products/insideOut.jpg" width="50px">
-                                    <img src="media/products/insideOut.jpg" width="50px">
-                                    <img src="media/products/insideOut.jpg" width="50px">
-                                    <img src="media/products/insideOut.jpg" width="50px">
-                                </div>
+                                <?php
+                                // RECOMMENDATIONS
+                                if (!empty((array)$document['recent_searches'])) { // If there are searches to base the recomendation on
+                                    echo "<div class='col-md-3' id='recommendations'>
+                                    <h2 style='margin-top: 0px;'>Recommendations:</h2>
+                                    <h6 style='margin-top: 0px;'>Based on your browsing history</h6>";
+
+                                    $searchesArray = (array)$document['recent_searches']; // Cast the searches on the document as an array
+                                    usort($searchesArray, function($a, $b) {return $b['count'] - $a['count'];}); // Sort the searches based on count
+                                    $cursor = $client->movie_box->products->find(['$text' => [ '$search' => $searchesArray[0]['search_term']]]); // Search for items that appear with the most popular search
+
+                                    $cursorArray = $cursor->toArray(); // Convert the cursor to an array
+
+                                    // set number of results to 3 (or below if there aren't 3 results)
+                                    if (count($cursorArray) >= 3) {
+                                        $numberResults = 3;
+                                    } else {
+                                        $numberResults = count($cursorArray);
+                                    }
+
+                                    $recommendations = array_rand($cursorArray, $numberResults); // Randomise the selection of products from the array
+                                    $recommendations = (array)$recommendations; // If only 1 id id returned make sure it is put into an array
+
+                                    foreach ($recommendations as $key => $recommendation) { // For each product display it's artwork, linked to it's product page
+                                        $productBarcode = $cursorArray[$recommendation]['barcode'];
+                                        $artworkURL = $cursorArray[$recommendation]['artwork'];
+                                        echo "<a href='product.php?productid=$productBarcode'><img src='$artworkURL' width='80px' style='padding-right:10px;'></a>";
+                                    }
+
+                                    echo "</div>";
+                                    
+                                }
+                                ?>
+                                
                             </div>
                         </div>
                         <!-- Order Summary Table -->
