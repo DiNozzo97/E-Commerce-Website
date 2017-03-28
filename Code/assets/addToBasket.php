@@ -8,7 +8,6 @@ if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a custome
 }
 
 $barcode = filter_var($_POST['barcode'], FILTER_SANITIZE_NUMBER_INT); // Sanitize the barcode provided
-// $barcode = "87174184684469";
 
 $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
 
