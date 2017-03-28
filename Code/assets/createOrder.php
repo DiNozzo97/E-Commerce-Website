@@ -2,7 +2,6 @@
 
 require '../vendor/autoload.php'; // Import the MongoDB library
 session_start();
-$_SESSION['userID'] = "58ab3691cd21167b5940b8e2";
 
 $client = new MongoDB\Client("mongodb://localhost:27017"); // Connect to the MongoDB server
 

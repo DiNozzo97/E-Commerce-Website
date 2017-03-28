@@ -214,7 +214,6 @@ function createOrder() {
 	 			if (ajaxResponse.result == 'success') { // Order completed
 	 				window.location.href = './confirmation.php?id=' + ajaxResponse.orderNumber;
 	 			} else { // Item requested is out of stock
-	 				console.log(ajaxResponse);
 	 				var outOfStockMsg = "Sorry, we do not have enough of the following DVDs to fulfill your order.<br>In stock we have:<br>";
 		 			$.each(ajaxResponse, function(index, value) { // For each pair returned
 		 				outOfStockMsg = outOfStockMsg + value.qty + "x " + value.title + '<br>';

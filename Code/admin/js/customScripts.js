@@ -227,7 +227,6 @@ function saveEditProduct() {
 		url: './assets/updateProduct.php',
 		data: editProductData,
 		success: function(ajaxResponse) {
-			console.log(ajaxResponse);
 			switch(ajaxResponse.result) {
 				case "success": // If update is successful
 					$('#existingProduct').modal('hide'); // Show the modal
@@ -318,7 +317,6 @@ function saveNewProduct() {
 		url: './assets/createProduct.php',
 		data: newProductData,
 		success: function(ajaxResponse) {
-			console.log(ajaxResponse);
 			switch(ajaxResponse.result) {
 				case "success": // If update is successful
 					$('#existingProduct').modal('hide'); // Show the modal

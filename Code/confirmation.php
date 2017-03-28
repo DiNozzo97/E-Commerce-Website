@@ -17,7 +17,7 @@
 
         <?php require 'assets/navbar.php';
         if (!isset($_SESSION['userID'])) { // If the user isn't a signed in as a customer
-            header('Location: ./mainpage.php'); // Then redirect them to the main page
+            header('Location: ./'); // Then redirect them to the main page
         } ?>
 
             <!-- ------------------ CONTENT ------------------- -->
@@ -25,7 +25,7 @@
             <div id="content" class="container">
                 <div class="container">
                     <h1>Confirmation <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h1>
-                    <p class="text-success">Order Confirmed. Your Order Number: <strong><?= $_GET['id']; ?></strong><br> click <a href="mainpage.php">here</a> to return to the homepage.</p>
+                    <p class="text-success">Order Confirmed. Your Order Number: <strong><?= $_GET['id']; ?></strong><br> click <a href="./">here</a> to return to the homepage.</p>
                 </div>
             </div>
             <footer></footer>
