@@ -43,16 +43,19 @@ $document = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['
                                         <?=$document['shipping_address']['postcode']?>
                                     </p>
                                 </div>
+                                <div class='col-md-3' id='recommendations'>
                                 <?php
                                 // RECOMMENDATIONS
                                 if (!empty((array)$document['recent_searches'])) { // If there are searches to base the recomendation on
-                                    echo "<div class='col-md-3' id='recommendations'>
-                                    <h2 style='margin-top: 0px;'>Recommendations:</h2>
-                                    <h6 style='margin-top: 0px;'>Based on your browsing history</h6>";
 
                                     $searchesArray = (array)$document['recent_searches']; // Cast the searches on the document as an array
                                     usort($searchesArray, function($a, $b) {return $b['count'] - $a['count'];}); // Sort the searches based on count
-                                    $cursor = $client->movie_box->products->find(['$text' => [ '$search' => $searchesArray[0]['search_term']]]); // Search for items that appear with the most popular search
+                                    $searchTerm = $searchesArray[0]['search_term'];
+                                    $cursor = $client->movie_box->products->find(['$text' => [ '$search' => $searchTerm]]); // Search for items that appear with the most popular search
+
+                                    echo "<h2 style='margin-top: 0px;'>Recommendations:</h2>
+                                    <h5 style='margin-top: 0px;'>Based on your recent search for '$searchTerm'</h5>"
+                                    ;
 
                                     $cursorArray = $cursor->toArray(); // Convert the cursor to an array
 
@@ -72,10 +75,11 @@ $document = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId($_SESSION['
                                         echo "<a href='product.php?productid=$productBarcode'><img src='$artworkURL' width='80px' style='padding-right:10px;'></a>";
                                     }
 
-                                    echo "</div>";
+                                    echo "<a href='#' onClick='removeUpdateRec(\"$searchTerm\");'>Not relevant? Let me try again</a>";
                                     
                                 }
                                 ?>
+                                </div>
                                 
                             </div>
                         </div>

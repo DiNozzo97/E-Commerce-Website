@@ -225,6 +225,18 @@ function createOrder() {
 	 	});
 }
 
+function removeUpdateRec(searchTerm) {
+	$.ajax({ // AJAX Request
+	 		dataType: 'html',
+	 		type: 'POST',
+	 		url: '../assets/removeUpdateRec.php',
+	 		data: {search_term: searchTerm}, // Provide the data to send to the php script
+	 		success: function(ajaxResponse) {
+				$("#recommendations").html(ajaxResponse);
+	 		}
+	 	});
+}
+
 function changeResultSort() {
 	var url = window.location.href; // Get the current URL from the browser
 	url = url.split("&")[0]; // Remove the sort parameter if it has been set
